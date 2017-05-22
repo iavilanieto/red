@@ -4,7 +4,7 @@ function generarPiramide2(){
   "width": 300,
   "height": 240,
   "padding": 5,
-//barras piramide 2
+//barras 
   "data": [
     {
       "name": "table",
