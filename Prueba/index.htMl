@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		
+
+	</title>
+        <script src="js/jquery-current.min.js"></script>
+		 <script src="js/bootstrap/js/bootstrap.min.js"></script>
+		 <script src="js/d3/d3.min.js"></script>
+		 <script src="js/vega/vega.js"></script>
+		 <script src="personas.js"></script>
+
+</head>
+<body>
+	 <ul/>
+		<button type="button" id="pi" onclick="iniciarConsulta1()">Piramide</button>
+		<button type="button" id="ba" onclick="iniciarConsulta2()">Barras</button>
+		<button type="button" id="es" onclick="iniciarConsulta3()">Lineas</button>
+		<button type="button" id="map" onclick="iniciarConsulta4()">Mapa</button>
+         </div>
+    <ul/>
+    <div>
+    <div id="Tabpopulation" align="left">
+    	
+    </div>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript">
+var esquema="https://vega.github.io/schema/vega/v3.0.json";
+
+var datosJSON=
+[
+{
+  "total": 85580,
+  "working-age": 52967,
+  "name": "Cuxhaven"
+},
+ {
+  "total": 93172,
+  "working-age": 60333,
+  "name": "Lehrte"
+},
+ {
+  "total": 87978,
+  "working-age": 57491,
+  "name": "Bremerv\u00f6rde"
+},
+ {
+  "total": 76563,
+  "working-age": 49206,
+  "name": "Seevetal"
+},
+ {
+  "total": 105330,
+  "working-age": 66696,
+  "name": "Elbe"
+},
+ {
+  "total": 89589,
+  "working-age": 57112,
+  "name": "Bergen"
+},
+ {
+  "total": 70519,
+  "working-age": 45111,
+  "name": "Walsrode"
+},
+ {
+  "total": 107584,
+  "working-age": 69292,
+  "name": "Osterholz"
+},
+{
+  "total": 105513,
+  "working-age": 69039,
+  "name": "Verden"
+},
+ {
+  "total": 72839,
+  "working-age": 46336,
+  "name": "Hadeln/Weserm\u00fcnde"
+},
+{
+  "total": 93689,
+  "working-age": 61438,
+  "name": "Oldenburg-Land"
+},
+ {
+  "total": 111290,
+  "working-age": 75341,
+  "name": "L\u00fcneburg"
+},
+ {
+  "total": 101251,
+  "working-age": 67517,
+  "name": "Cloppenburg-Nord"
+},
+ {
+  "total": 91655,
+  "working-age": 61121,
+  "name": "Cloppenburg"
+},
+ {
+  "total": 112135,
+  "working-age": 76841,
+  "name": "Vechta"
+},
+ {
+  "total": 81020,
+  "working-age": 52284,
+  "name": "Wilhelmshaven"
+},
+ {
+  "total": 107603,
+  "working-age": 71696,
+  "name": "Lingen"
+},
+ {
+  "total": 86335,
+  "working-age": 54759,
+  "name": "Buchholz"
+},
+ {
+  "total": 107077,
+  "working-age": 70377,
+  "name": "Aurich"
+},
+ {
+  "total": 74985,
+  "working-age": 49292,
+  "name": "Rotenburg"
+},
+ {
+  "total": 74291,
+  "working-age": 48492,
+  "name": "Leer/Borkum"
+},
+ {
+  "total": 106639,
+  "working-age": 68486,
+  "name": "Emden/Norden"
+}
+]
+function generarPiramide(){
+   return {
+  "$schema":esquema ,
+  "height": 300+(5*datosJSON.length),
+  "padding": 5,
+
+  "signals": [
+    { "name": "chartWidth", "value": 300 },
+    { "name": "chartPad", "value": 20 },
+    { "name": "width", "update": "2 * chartWidth + chartPad" },
+    { "name": "year", "value": 2000 }
+  ],
+
+  "data": [
+    {
+      "name": "population",
+      "values": datosJSON
+    },
+    {
+      "name": "valores",
+      "source": "population",
+      "transform": [
+        {
+        	"type": "fold", 
+        	"fields": ["total","working-age"]
+    	}
+      ]
+     }
+  ],
+
+
+  "scales": [
+    {
+      "name": "y",
+      "type": "band",
+      "range": [{"signal": "height"}, 0],
+      "round": true,
+      "domain": {"data": "population", "field": "name"}
+    }
+  ],
+   "marks": [
+    {
+      "type": "text",
+      "interactive": false,
+      "from": {"data": "population"},
+      "encode": {
+        "enter": {
+          "x": {"signal": "chartWidth + chartPad / 2"},
+          "y": {"scale": "y", "field": "name", "band": 0.5},
+          "text": {"field": "name"},
+          "baseline": {"value": "middle"},
+          "align": {"value": "center"},
+          "fill": {"value": "#000"}
+        }
+      }
+    },
+    {
+      "type": "group",
+
+      "encode": {
+        "update": {
+          "x": {"value": -50},
+          "height": {"signal": "height"}
+        }
+      },
+
+      "scales": [
+        {
+          "name": "x",
+          "type": "linear",
+          "range": [{"signal": "chartWidth"}, 0],
+          "nice": true, "zero": true,
+          "domain": {"data": "valores", "field": "value"}
+        }
+      ],
+
+      "axes": [
+        {"orient": "bottom", "scale": "x", "format": "s"}
+      ], 
+       "marks": [
+        {
+          "type": "rect",
+          "from": {"data": "population"},
+          "encode": {
+            "enter": {
+              "x": {"scale": "x", "field": "total"},
+              "x2": {"scale": "x", "value": 0},
+              "y": {"scale": "y", "field": "name"},
+              "height": {"scale": "y", "band": 1, "offset": -1},
+              "fillOpacity": {"value": 0.6},
+              "fill": {"value": "#1f77b4"}
+            }
+          }
+        }
+      ]
+  },
+      {
+      "type": "group",
+
+      "encode": {
+        "update": {
+          "x": {"signal": "chartWidth+chartPad"},
+          "height": {"signal": "height"}
+        }
+      },
+
+      "scales": [
+        {
+          "name": "x",
+          "type": "linear",
+          "range": [50, {"signal": "chartWidth"}],
+          "nice": true, "zero": true,
+          "domain": {"data": "valores", "field": "value"}
+        }
+      ],
+
+      "axes": [
+        {"orient": "bottom", "scale": "x", "format": "s"}
+      ], 
+       "marks": [
+        {
+          "type": "rect",
+          "from": {"data": "population"},
+          "encode": {
+            "enter": {
+              "x": {"scale": "x", "field": "working-age"},
+              "x2": {"scale": "x", "value": 0},
+              "y": {"scale": "y", "field": "name"},
+              "height": {"scale": "y", "band": 1, "offset": -1},
+              "fillOpacity": {"value": 0.6},
+              "fill": {"value": "#0000"}
+            }
+          }
+        }
+      ]
+  }
+      ]
+}}
+
+function generarPiramide2(){
+   return {
+    "$schema": esquema,
+
+  "width": personas.length,
+  "height": personas.length,
+  "padding": 5,
+  "data": [
+    {
+      "name": "personas",
+      "values": personas
+    },
+    {
+      "name": "valores",
+      "source": "personas",
+      "transform": [
+        {
+        	"type": "fold", 
+        	"fields": ["age","sex","people"]//,
+        	//"calculate":"datum.sex == 2 ? 'F' : 'M', as "
+    	}
+      ]
+     }
+  ]
+  ,
+  "scales": [
+    {
+      "name": "x",
+      "type":  "band",
+      "range": "width",
+      "domain": {"data": "personas", "field": "age"},
+      "padding": 0.2
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "range": "height",
+      "round": true,
+      "zero": true,
+      "nice": true,
+      "domain": {"data": "personas", "field": "people"},
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {"data": "personas", "field": "sex"},
+      "range": ["#000", "#659CCA"]
+    }
+  ]
+  ,
+
+  "axes": [
+    {"orient": "bottom", "scale": "x", "zindex": 1},
+    {"orient": "left", "scale": "y", "zindex": 1}
+  ]
+  ,
+
+  "marks": [
+    {
+      "type": "group",
+
+      "from": {
+        "facet": {
+          "data": "personas",
+          "name": "facet",
+          "groupby": "age"
+        }
+      },
+
+      "encode": {
+        "enter": {
+          "x": {"scale": "x", "field": "age"}
+        }
+      },
+
+      "signals": [
+        {"name": "height", "update": "bandwidth('x')"}
+      ],
+
+      "scales": [
+        {
+          "name": "pos",
+          "type": "band",
+          "range": "height",
+          "domain": {"data": "facet", "field": "sex"}
+        }
+      ],
+      "marks": [
+        {
+          "name": "bars",
+          "from": {"data": "facet"},
+          "type": "rect",
+          "encode": {
+            "enter": {
+              "x": {"scale": "pos", "field": "sex"},
+              "width": {"scale": "pos", "band": 1},
+              "y": {"scale": "y", "field": "people"},
+              "y2": {"scale": "y", "value": 0},
+              "fill": {"scale": "color", "field": "sex"}
+         } } 
+        },
+
+        {
+          "type": "text",
+          "from": {"data": "bars"},
+          "encode": {
+            "enter": {
+              "y": {"field": "y2", "offset": 25},
+              "x": {"field": "x", "offset": {"field": "width", "mult": 0.5}},
+              "fill": {"value": "black"},
+              "align": {"value": "right"},
+              "baseline": {"value": "middle"},
+              "text": {"field": "datum.sex"},
+            }
+          }
+        }
+      ]
+    }
+  ]
+
+}}
+
+	function iniciarConsulta1(){
+	$("#Tabpopulation").empty();
+	$("#Tabpopulation").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
+    var view = new vega.View(vega.parse(generarPiramide()), {
+    loader: vega.loader(),
+    logLevel: vega.Warn,
+    renderer: 'canvas'
+    }).initialize('#population-pyramid').hover().run();
+
+    console.log(datosJSON);
+    }
+
+	function iniciarConsulta2(){
+	$("#Tabpopulation").empty();
+	$("#Tabpopulation").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
+    var view = new vega.View(vega.parse(generarPiramide2()), {
+    loader: vega.loader(),
+    logLevel: vega.Warn,
+    renderer: 'canvas'
+    }).initialize('#population-pyramid').hover().run();
+
+    console.log(datosJSON);
+    console.log(personas);
+    }
+</script>
