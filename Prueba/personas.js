@@ -1,3 +1,4 @@
+//datos population
 var personas=[{"year":1850,"age":0,"sex":1,"people":1483789},
 {"year":1850,"age":0,"sex":2,"people":1450376},
 {"year":1850,"age":5,"sex":1,"people":1411067},
