@@ -1,37 +1,34 @@
-function generarPiramide2(){
-   return {
-    "$schema": "https://vega.github.io/schema/vega/v3.0.json",
-  "width": 300,
-  "height": 240,
+function generarBarras(){
+  return {
+    "$schema": esquema,
+
+  "width": personas2.length+500,
+  "height": personas2.length+200,
   "padding": 5,
-//barras 2
   "data": [
     {
-      "name": "table",
-      "values": [
-        {"category":"A", "position":0, "value":0.1},
-        {"category":"A", "position":1, "value":0.6},
-        {"category":"A", "position":2, "value":0.9},
-        {"category":"A", "position":3, "value":0.4},
-        {"category":"B", "position":0, "value":0.7},
-        {"category":"B", "position":1, "value":0.2},
-        {"category":"B", "position":2, "value":1.1},
-        {"category":"B", "position":3, "value":0.8},
-        {"category":"C", "position":0, "value":0.6},
-        {"category":"C", "position":1, "value":0.1},
-        {"category":"C", "position":2, "value":0.2},
-        {"category":"C", "position":3, "value":0.7}
+      "name": "personas",
+      "values": personas2
+    },
+    {
+      "name": "valores",
+      "source": "personas",
+      "transform": [
+        {
+          "type": "fold", 
+          "fields": ["col2","col3","col4","col5"]
+      }
       ]
-    }
-  ],
-
+     }
+  ]
+  ,
   "scales": [
     {
       "name": "x",
       "type":  "band",
       "range": "width",
-      "domain": {"data": "table", "field": "category"},
-      "padding": 0.2
+      "domain": {"data": "personas", "field": "col2"},
+      "padding": 0.1
     },
     {
       "name": "y",
@@ -40,40 +37,32 @@ function generarPiramide2(){
       "round": true,
       "zero": true,
       "nice": true,
-      "domain": {"data": "table", "field": "value"},
-    },
-    {
-      "name": "color",
-      "type": "ordinal",
-      "domain": {"data": "table", "field": "position"},
-      "range": {"scheme": "category20"}
+      "domain": {"data": "personas", "field": "col5"},
     }
-  ],
+  ]
+  ,
 
   "axes": [
-    {"orient": "bottom", "scale": "x", "zindex": 1,"tickSize": 0,"labelPadding": 4},
-    {"orient": "left", "scale": "y", "zindex": 1},
+    {"orient": "bottom", "scale": "x", "zindex": 1},
+    {"orient": "left", "scale": "y", "zindex": 1}
   ]
   ,
 
   "marks": [
     {
       "type": "group",
-
       "from": {
         "facet": {
-          "data": "table",
+          "data": "personas",
           "name": "facet",
-          "groupby": "category"
+          "groupby": "col2"
         }
       },
-
       "encode": {
         "enter": {
-          "x": {"scale": "x", "field": "category"}
+          "x": {"scale": "x", "field": "col2"}
         }
       },
-
       "signals": [
         {"name": "height", "update": "bandwidth('x')"}
       ],
@@ -83,11 +72,9 @@ function generarPiramide2(){
           "name": "pos",
           "type": "band",
           "range": "height",
-          "domain": {"data": "facet", "field": "position"}
+          "domain": {"data": "facet", "field": "col3"}
         }
-      ]
-      ,
-
+      ],
       "marks": [
         {
           "name": "bars",
@@ -95,30 +82,28 @@ function generarPiramide2(){
           "type": "rect",
           "encode": {
             "enter": {
-              "x": {"scale": "pos", "field": "position"},
-              "width": {"scale": "pos", "band": 1},
-              "y": {"scale": "y", "field": "value"},
+              "x": {"scale": "pos", "field": "col3", "band": .5},
+              "width": {"scale": "pos", "band": .5},
+              "y": {"scale": "y", "field": "col3"},
               "y2": {"scale": "y", "value": 0},
-              "fill": {"scale": "color", "field": "position"}
-            }
-          }
-        },
+              "fill": {"value": "grey"}
+          } 
+        }},
         {
-          "type": "text",
-          "from": {"data": "bars"},
+          "name": "bars1",
+          "from": {"data": "facet"},
+          "type": "rect",
           "encode": {
             "enter": {
-              "y": {"field": "y2", "offset": -5},
-              "x": {"field": "x", "offset": {"field": "width", "mult": 0.5}},
-              "fill": {"value": "white"},
-              "align": {"value": "right"},
-              "baseline": {"value": "middle"},
-              "text": {"field": "datum.value"}
-            }
-          }
-        }
+              "x": {"scale": "pos","field": "col4"},
+              "width": {"scale": "pos", "band": 0.5},
+              "y": {"scale": "y", "field": "col4"},
+              "y2": {"scale": "y", "value": 0},
+               "fill": {"value": "#659CCA"}
+          } 
+        }}
+       
       ]
     }
   ]
-
 }}
