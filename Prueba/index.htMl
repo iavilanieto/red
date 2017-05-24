@@ -13,6 +13,7 @@
         <script src="piramide.js"></script>
         <script src="barras.js"></script>
         <script src="lineas.js"></script>
+        <script src="Pie.js"></script>
 
     </head>
     <body>
@@ -43,7 +44,6 @@
             logLevel: vega.Warn,
             renderer: 'canvas'
         }).initialize('#population-pyramid').hover().run();
-        console.log(datosJSON);
     }
 
     function iniciarConsulta2(){
@@ -54,7 +54,6 @@
             logLevel: vega.Warn,
             renderer: 'canvas'
         }).initialize('#population-pyramid').hover().run();
-        console.log(personas2);
     }
 
 
@@ -62,6 +61,15 @@
         $("#Tabpopulation").empty();
         $("#Tabpopulation").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
         var view = new vega.View(vega.parse(generarLineas()), {
+            loader: vega.loader(),
+            logLevel: vega.Warn,
+            renderer: 'canvas'
+        }).initialize('#population-pyramid').hover().run();
+    }
+    function iniciarConsulta4(){
+        $("#Tabpopulation").empty();
+        $("#Tabpopulation").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
+        var view = new vega.View(vega.parse(generarPie()), {
             loader: vega.loader(),
             logLevel: vega.Warn,
             renderer: 'canvas'
