@@ -1,75 +1,71 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>
-		
+    <head>
+        <title>
 
-	</title>
+
+        </title>
         <script src="js/jquery-current.min.js"></script>
-		 <script src="js/bootstrap/js/bootstrap.min.js"></script>
-		 <script src="js/d3/d3.min.js"></script>
-		 <script src="js/vega/vega.js"></script>
-		 <script src="personas.js"></script>
-		 <script src="Piramide.js"></script>
-		 <script src="Barras.js"></script>
-		 <script src="Lineas.js"></script>
+        <script src="js/bootstrap/js/bootstrap.min.js"></script>
+        <script src="js/d3/d3.min.js"></script>
+        <script src="js/vega/vega.js"></script>
+        <script src="personas.js"></script>
+        <script src="piramide.js"></script>
+        <script src="barras.js"></script>
+        <script src="lineas.js"></script>
 
-</head>
-<body>
-	 <ul/>
-		<button type="button" id="pi" onclick="iniciarConsulta1()">Piramide</button>
-		<button type="button" id="ba" onclick="iniciarConsulta2()">Barras</button>
-		<button type="button" id="es" onclick="iniciarConsulta3()">Lineas</button>
-		<button type="button" id="map" onclick="iniciarConsulta4()">Mapa</button>
-         </div>
-    <ul/>
-    <div>
-    <div id="Tabpopulation" align="left">
-    	
-    </div>
-    </div>
-</body>
+    </head>
+    <body>
+        <ul/>
+        <div>
+            <button type="button" id="pi" onclick="iniciarConsulta1()">Piramide</button>
+            <button type="button" id="ba" onclick="iniciarConsulta2()">Barras</button>
+            <button type="button" id="es" onclick="iniciarConsulta3()">Lineas</button>
+            <button type="button" id="map" onclick="iniciarConsulta4()">Mapa</button>
+        </div>
+        <ul/>
+        <div>
+            <div id="Tabpopulation" align="left"></div>
+        </div>
+    </body>
 </html>
 
 <script type="text/javascript">
-var esquema="https://vega.github.io/schema/vega/v3.0.json";
 
+    var esquema="https://vega.github.io/schema/vega/v3.0.json";
+    datosJSON={};
 
-datosJSON={};
-
-
-	function iniciarConsulta1(){
-	 $("#Tabpopulation").empty();
-	 $("#Tabpopulation").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
-    var view = new vega.View(vega.parse(generarPiramide()), {
-    loader: vega.loader(),
-    logLevel: vega.Warn,
-    renderer: 'canvas'
-    }).initialize('#population-pyramid').hover().run();
-
-    console.log(datosJSON);
+    function iniciarConsulta1(){
+        $("#Tabpopulation").empty();
+        $("#Tabpopulation").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
+        var view = new vega.View(vega.parse(generarPiramide()), {
+            loader: vega.loader(),
+            logLevel: vega.Warn,
+            renderer: 'canvas'
+        }).initialize('#population-pyramid').hover().run();
+        console.log(datosJSON);
     }
 
-	function iniciarConsulta2(){
-	 $("#Tabpopulation").empty();
-	 $("#Tabpopulation").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
-    var view = new vega.View(vega.parse(generarBarras()), {
-    loader: vega.loader(),
-    logLevel: vega.Warn,
-    renderer: 'canvas'
-    }).initialize('#population-pyramid').hover().run();
-    console.log(personas2);
+    function iniciarConsulta2(){
+        $("#Tabpopulation").empty();
+        $("#Tabpopulation").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
+        var view = new vega.View(vega.parse(generarBarras()), {
+            loader: vega.loader(),
+            logLevel: vega.Warn,
+            renderer: 'canvas'
+        }).initialize('#population-pyramid').hover().run();
+        console.log(personas2);
     }
 
 
-  function iniciarConsulta3(){
-   $("#Tabpopulation").empty();
-   $("#Tabpopulation").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
-    var view = new vega.View(vega.parse(generarBarras3()), {
-    loader: vega.loader(),
-    logLevel: vega.Warn,
-    renderer: 'canvas'
-    }).initialize('#population-pyramid').hover().run();
-    console.log(personas2);
+    function iniciarConsulta3(){
+        $("#Tabpopulation").empty();
+        $("#Tabpopulation").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
+        var view = new vega.View(vega.parse(generarLineas()), {
+            loader: vega.loader(),
+            logLevel: vega.Warn,
+            renderer: 'canvas'
+        }).initialize('#population-pyramid').hover().run();
+        console.log(personas2);
     }
 </script>
