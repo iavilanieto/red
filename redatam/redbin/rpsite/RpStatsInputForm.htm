@@ -1,0 +1,51 @@
+﻿<form name="RpStats" method="POST" action="<#WEBSERVER>/<#WEBSCRIPT>/<#WEBAPPLICATION>/Stats?">
+
+  <input type="HIDDEN" name="MAIN"   value="<#MAIN>">
+  <input type="HIDDEN" name="BASE"   value="<#BASE>">
+  <input type="HIDDEN" name="LANG"   value="<#LANG>">
+  <input type="HIDDEN" name="CODIGO" value="xxUsuarioxx">
+  <input type="HIDDEN" name="ITEM"   value="<#ITEMID>">
+  <input type="HIDDEN" name="MODE"   value="RUN">
+
+  <#FIXEDFILTER>
+
+<div class="ui-panel ui-widget-content ui-corner-all" >
+  <table border="0" cellspacing="0" cellpadding="2" >
+    <tr>
+      <td align="center" colspan="2">
+        <#PROCESSTITLE>
+      </td>
+    </tr>
+    <#TABLETITLE>
+  </table>
+</div>
+
+<br />
+<div class="ui-widget-content ui-corner-tl ui-corner-tr" >
+  <table>
+    <tr>
+      <td colspan="2" align="center">
+        <#VARLIST>
+      </td>
+    </tr>
+    <#VARLISTWEIGHT>
+  </table>
+</div>
+
+<br />
+<div class="ui-widget-content ui-corner-bl ui-corner-br" >
+  <table>
+    <#ITEMLISTSEL>
+    <#ITEMLISTUNIVERSE>
+    <#ITEMLISTFILTER>
+    <#ITEMLISTFORMAT>
+  </table>
+</div>
+
+<br />
+<div class="ui-widget-header ui-corner-all" align="center" >
+  <#BUTTONSUBMIT>
+  <#BUTTONHELP>
+</div>
+
+</form>

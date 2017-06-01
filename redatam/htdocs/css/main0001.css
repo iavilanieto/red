@@ -1,0 +1,35 @@
+body.campaign
+{
+    background:#fff
+}
+
+.campaign #wrap
+{
+    background:transparent url(../images/redatam7.png) 100% 0 no-repeat;
+}
+#campaign { height:260px; line-height:1.9; }
+#campaign p { margin:10px 0; font-size:14px; width:410px; }
+h1 { font-size:2.5em; margin:22px 0 4px 0; }
+.split3 { padding-top:15px; }
+#photoz { padding-top:5px; }
+#infotext { clear:both; border:1px solid #ddd;border-radius:4px;padding:15px;background:#f5f5f5;margin:30px 0;font-size:19px; }
+@media all and (max-width:960px) {
+	#bigpic img.right { margin-right:-147px; margin-left:10px; }
+	.checkmarks { margin:10px 0; }
+	}
+
+@media all and (max-width:960px) {
+	.campaign #wrap { background:transparent url(../images/redatam7.png) 100% 0 no-repeat; }
+	#campaign p { width:374px; }
+	}
+@media all and (max-width:641px)
+{
+	h1 { margin-top:7px; font-size:1.6em; color:#000; }
+	body.campaign, .campaign #wrap { background:#fff; }
+	#campaign p { width:auto; line-height:1.5; font-size:13px; }
+	#campaign { height:auto; }
+	#infotext { padding:9px;margin:10px 0;font-size:14px; font-weight:bold; }
+	.split3 { padding:0; }
+}
+
+#mainimg img { border: 0; }

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>R+SP Display/Input Page</title>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, max-age=0, must-revalidate" />
+        <meta http-equiv="Expires" content="-1">
+
+        <script type="text/javascript" src="/redatam/js/jquery-current.min.js"></script>
+        <script type="text/javascript" src="/redatam/js/ui/jquery-ui-current.min.js"></script>
+
+        <script type="text/javascript" src="/redatam/js/jquery.form.js"></script>
+        <script type="text/javascript" src="/redatam/js/red.outputForm.js"></script>
+
+        <script type="text/javascript" src="/redatam/js/d3/d3.min.js"></script>
+        <script type="text/javascript" src="/redatam/js/vega/vega.js"></script>
+        <script src="/redatam/js/personas.js"></script>
+        <script src="/redatam/js/piramide.js"></script>
+        <script src="/redatam/js/barras.js"></script>
+        <script src="/redatam/js/lineas.js"></script>
+        <script src="/redatam/js/Pie.js"></script>
+        <script type="text/javascript" src="/redatam/js/jquery.tabletojson.js"></script>
+
+        <link type="text/css" rel="stylesheet" href="/redatam/css/red.panels.css" />
+        <link type="text/css" rel="stylesheet" href="/redatam/css/red.input.main.css" />
+        <link type="text/css" rel="stylesheet" href="/redatam/css/red.output.css" />
+
+        <link type="text/css" rel="stylesheet" href="<#THEME>" />
+
+        <#SCRIPTS>
+
+            </head>
+
+        <body <#ONLOAD> >
+        <div id="title_dummy" >
+            <#TITLE>
+                <#SUBTITLE>
+                    </div>
+                <div id="redWork" style="margin: 5px 0 0 0">
+                    <div class="ui-panel ui-widget-content ui-corner-tl ui-corner-tr">
+                        <div class="ui-panel-titlebar ui-widget-header ui-corner-all">
+                            <span class="ui-panel-title" id="main_title">??</span>
+                        </div>
+                        <br/>
+                        <div id="redError">
+                        </div>
+                        <span id="redToolbar" class="ui-widget-header ui-corner-all">
+                            <button id="btnRegresar">Regresar</button>
+                        </span>
+                        <div id="redTabs">
+                            <ul>
+                                <li><a href="#tabs-1"><#TABTABLE></a></li>
+                                <li><a href="#tabs-2"><#TABGRAPH></a></li>
+                                <li><a href="#tabs-3"><#TABSPC></a></li>
+                                <li><a href="#tabs-4"><#TABMAP></a></li>
+                                <li><a href="#tabs-5"><#TABDIC></a></li>
+                                <li><a href="#tabs-6" onclick="iniciarConsulta()">Dinamico</a></li>
+                            </ul>
+                            <div id="tabs-1">
+                                <div id="tab-output">
+                                </div>
+                                <!--<br/>
+<span id="toolbar" class="ui-widget-header ui-corner-all">
+Export:
+<button id="excel">Excel</button>
+<button id="pdf">PDF</button>
+</span>
+-->
+                            </div>
+                            <div id="tabs-2">
+                                <div id="tab-graphic" align="center">
+                                </div>
+                            </div>
+                            <div id="tabs-3">
+                                <div id="tab-spc" align="left">
+                                    <div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="tabs-4">
+                                <div id="tab-map" align="center">
+                                </div>
+                            </div>
+                            <div id="tabs-5">
+                                <div id="tab-dic" align="left">
+                                    <div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="tabs-6">
+                                <div id="tab-din" align="left">
+                                    <div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="redInput" class="ui-widget-content">
+                            <#ITEMLIST>
+                          
+                                </div>
+                            <div id="redImage" align="center">
+                                <img src=""/>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div id="redStatusDialog" title="R+SP WebServer">
+                        <br/>
+                        <table border="0">
+                            <tr>
+                                <td><img src="/redatam/images/ajax-loader.gif"/></td>
+                                <td valign="center"><#STATUSDIALOG></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br/>
+                    <div class="ui-panel ui-widget-content ui-corner-bl ui-corner-br" align="center">
+                        WebMaster <a href="mailto:<#WEBMASTER>"><#WEBMASTER></a><br><#COPYRIGHT>
+                        </div>
+                        <br/>
+                        <script>
+
+                            var datosJSON = {}
+                            function iniciarConsulta() {
+
+                                var tabla = $(".CSSTableGenerator table").clone();
+
+                                while(tabla.find("tr").first().find(".c2    ").length==0) {
+                                    tabla.find("tr").first().remove();
+                                }
+
+                                // remover comas como separador de miles
+                                var tablaTransformada = tabla.tableToJSON({
+                                    ignoreHiddenRows: false,
+                                    ignoreEmptyRows: true,
+                                    headings: ["col1", "col2", "col3", "col4", "col5", "col6", "col7", "col8", "col9", "col10"]
+                                });
+                                cadenaJSON = JSON.stringify(tablaTransformada).replace(/([0-9]+),([0-9]+)/g,"$1$2");
+                                console.log(cadenaJSON);
+                                cadenaJSON = cadenaJSON.replace(/\"([0-9]+)\"/g,"$1");
+                                datosJSON = JSON.parse(cadenaJSON);
+                                $.each(datosJSON, function( index, item ) {
+                                    var vacio = 1;
+                                    var esTotal = 0;
+                                    var esNumerico = 1;
+                                    $.each(item, function( index, datos ) {
+                                        if(datos != ""){
+                                            vacio = 0;
+                                        }
+                                        if(index === "col2" && datos === "Total"){
+                                            esTotal = 1;
+                                        }
+                                        if((isNaN(parseFloat(datos)) || datos === "") && (index === "col3" || index === "col4")){
+                                            esNumerico = 0;
+                                        }
+                                    });
+                                    if(vacio === 1 || esTotal === 1 || esNumerico != 1) {
+                                        delete datosJSON[index];
+                                    }
+                                });
+                                $("#tab-din").empty();
+                                $("#tab-din").append("<ul/><div><button type=\"button\" id=\"pi\" onclick=\"iniciarConsulta1()\">Piramide</button><button type=\"button\" id=\"ba\" onclick=\"iniciarConsulta2()\">Barras</button><button type=\"button\" id=\"es\" onclick=\"iniciarConsulta3()\">Lineas</button><button type=\"button\" id=\"pie\" onclick=\"iniciarConsulta4()\">Pie</button></div><ul/><div><div id=\"population-pyramid\" class=\"view\"></div></div>");
+                                iniciarConsulta1();
+                                console.log(datosJSON);
+/*
+                                var view = new vega.View(vega.parse(generarPiramide()), {
+                                    loader: vega.loader(),
+                                    logLevel: vega.Warn,
+                                    renderer: 'canvas'
+                                }).initialize('#population-pyramid').hover().run();
+  */                              var selected_value = [];                                
+                            }
+var esquema="https://vega.github.io/schema/vega/v3.0.json";
+    datosJSON={};
+
+    function iniciarConsulta1(){
+        $("#population-pyramid").empty();
+        $("#population-pyramid").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
+        var view = new vega.View(vega.parse(generarPiramide()), {
+            loader: vega.loader(),
+            logLevel: vega.Warn,
+            renderer: 'canvas'
+        }).initialize('#population-pyramid').hover().run();
+    }
+
+    function iniciarConsulta2(){
+        $("#population-pyramid").empty();
+        $("#population-pyramid").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
+        var view = new vega.View(vega.parse(generarBarras()), {
+            loader: vega.loader(),
+            logLevel: vega.Warn,
+            renderer: 'canvas'
+        }).initialize('#population-pyramid').hover().run();
+    }
+
+
+    function iniciarConsulta3(){
+        $("#population-pyramid").empty();
+        $("#population-pyramid").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
+        var view = new vega.View(vega.parse(generarLineas()), {
+            loader: vega.loader(),
+            logLevel: vega.Warn,
+            renderer: 'canvas'
+        }).initialize('#population-pyramid').hover().run();
+    }
+    function iniciarConsulta4(){
+        $("#population-pyramid").empty();
+        $("#population-pyramid").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
+        var view = new vega.View(vega.parse(generarPie()), {
+            loader: vega.loader(),
+            logLevel: vega.Warn,
+            renderer: 'canvas'
+        }).initialize('#population-pyramid').hover().run();
+    }
+                        function cambioSeleccion(){
+                            var a=false,b=false,c=false;
+                                 $(".grupo:checked").each(function(){
+                                    if ($(this).val()==="Tabla")
+                                        a=true;
+                                    if ($(this).val()==="Piramide")
+                                        b=true;
+                                    if ($(this).val()==="Programa")
+                                        c=true;     
+                                });
+                                if (a)
+                                    $('select[name="FORMAT"]').val('HTML');
+                                if (b)
+                                    $('select[name="FORMAT"]').val('GRAPH');
+                                if(a&b)
+                                    $('select[name="FORMAT"]').val('HTMLGRAPH');
+                                if(c)
+                                    $('select[name="FORMAT"]').val('SPC');
+                            };
+
+                        </script>
+                        </body>
+
+                        </html>

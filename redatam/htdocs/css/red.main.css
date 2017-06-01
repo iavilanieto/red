@@ -1,0 +1,26 @@
+.red-main {
+    background: #FAFAFA;
+    width:100%;
+    height:calc(100% - 55px);
+    height: -moz-calc(100% - 55px);
+    height: -webkit-calc(100% - 55px);
+    float:left;
+}
+.red-index {
+    width: 238px;
+    height: 100%;
+    float:left;
+    border: solid;
+    border-width: 0 0 0 0;
+    border-color: #dddddd;
+    -webkit-box-shadow: 1px 0px 1px rgba(0,0,0,0.3);
+    box-shadow: 1px 0px 1px rgba(0,0,0,0.3);
+    margin-right: 2px;
+}
+.red-output {
+    width: calc(100% - 240px);
+    width: -moz-calc(100% - 240px);
+    width: -webkit-calc(100% - 240px);
+    height: 100%;
+    float:left;
+}

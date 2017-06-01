@@ -1,0 +1,51 @@
+[STRUCTURE]
+MODE=APPLICATION
+ALLOWRESTART=YES
+PLANID=WebPlan Censo
+CAPTION=Aplicación R+SP WebServer para Procesamiento en Línea de Información Censal
+
+DATASETS=1
+
+SELSET=SELSET1
+LASTSELECTION=1
+
+UNIVSET=UNIVSET1
+
+NODES=3
+NODE2=POBYVIVIENDA
+NODE1=ANDEMGROUP
+NODE3=INFOGROUP
+
+DEFINES=25
+
+MAPS=7
+MAP1=MAPCOMU
+MAP2=MAPDIST
+MAP3=MAPDISTC5
+MAP4=MAPDISTC6
+MAP5=MAPDISTC7
+MAP6=MAPDISTC8
+MAP7=MAPDISTC9
+
+PAGES=10
+PAGE=7
+
+FOOTNOTES=1
+DEFAULTFOOTNOTE=1
+
+HTMLPATH=ESP\
+
+PORTALTITLE=
+PORTALSUBTITLE=
+
+#include ESP\Nodes_ESP.inl
+
+#include ESP\Preferences_ESP.inl
+#include ESP\DataSels_ESP.inl
+#include ESP\Panels_ESP.inl
+#include ESP\Styles_ESP.inl
+#include ESP\GeneralSections_ESP.inl
+#include ESP\Pages_ESP.inl
+#include ESP\Defines_ESP.inl
+#include ESP\Maps_ESP.inl
+#include ESP\Utilities_ESP.inl

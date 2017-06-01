@@ -1,0 +1,14 @@
+#front-header {
+    background-image: url("/redatam/images/background.jpg");
+    background-repeat:no-repeat;
+    -webkit-background-size:cover;
+    -moz-background-size:cover;
+    -o-background-size:cover;
+    background-size:cover;
+    background-position:center;
+}
+
+#front-footer{
+	background-color: #195591;
+	
+}

@@ -1,0 +1,45 @@
+[MAPCOMU]
+CAPTION=Nueva Miranda : Comunas
+NODETYPE=MAP
+MXP=%INLPATH\ESP\Comunas_ESP.mxp
+MAPSECTION=MAP
+IMAGE=CUSTOM
+BORDER=1
+WIDTH=500
+HEIGHT=430
+
+[MAPDIST]
+CAPTION=Nueva Miranda : Distritos
+NODETYPE=MAP
+MXP=%INLPATH\ESP\Distritos_ESP.mxp
+MAPSECTION=MAP
+
+[MAPDISTC5]
+CAPTION=Nueva Miranda : Distritos de Santa Maria 
+NODETYPE=MAP
+MXP=%INLPATH\ESP\Distritos_Comu5_ESP.mxp
+MAPSECTION=MAPC5
+
+[MAPDISTC6]
+CAPTION=Nueva Miranda : Distritos de Santiago
+NODETYPE=MAP
+MXP=%INLPATH\ESP\Distritos_Comu6_ESP.mxp
+MAPSECTION=MAPC6
+
+[MAPDISTC7]
+CAPTION=Nueva Miranda : Distritos de Bolivar
+NODETYPE=MAP
+MXP=%INLPATH\ESP\Distritos_Comu7_ESP.mxp
+MAPSECTION=MAPC7
+
+[MAPDISTC8]
+CAPTION=Nueva Miranda : Distritos de Marbella
+NODETYPE=MAP
+MXP=%INLPATH\ESP\Distritos_Comu8_ESP.mxp
+MAPSECTION=MAPC8
+
+[MAPDISTC9]
+CAPTION=Nueva Miranda : Distritos de Puerto Nuevo
+NODETYPE=MAP
+MXP=%INLPATH\ESP\Distritos_Comu9_ESP.mxp
+MAPSECTION=MAPC9

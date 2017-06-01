@@ -1,0 +1,89 @@
+﻿<form name="RpMultiFilter" method="POST" action="<#WEBSERVER>/<#WEBSCRIPT>/<#WEBAPPLICATION>/MultiFilter?" >
+
+	<input type="HIDDEN" name="MAIN" 		value="<#MAIN>" >
+  <input type="HIDDEN" name="BASE" 	  value="<#BASE>" >
+	<input type="HIDDEN" name="LANG"    value="<#LANG>" >
+  <input type="HIDDEN" name="CODIGO"	value="xxUsuarioxx" >
+  <input type="HIDDEN" name="ITEM"    value="<#ITEMID>" >
+  <input type="HIDDEN" name="MODE"    value="RUN" >
+
+	<#FIXEDFILTER>
+
+<div class="ui-panel ui-widget-content ui-corner-all" >
+  <table border="0" cellspacing="0" cellpadding="2" >
+    <tr>
+      <td align="center" colspan="2">
+        <#PROCESSTITLE>
+      </td>
+    </tr>
+    <#TABLETITLE>
+  </table>
+</div>
+
+<br />
+<div class="ui-widget-content ui-corner-tl ui-corner-tr" >
+  <table>
+    <tr>
+      <td colspan="2" align="center" >
+        <table border="0" cellspacing="0" cellpadding="2" >
+        	<tr>
+          	<td>
+            	<H3><#TRITITLE></H3>
+            </td>
+					</tr>
+          <tr>
+          	<td>
+            	<#TRIVAR>
+            </td>
+          </tr>
+          <tr>
+          	<td>
+            	<H3><#FILTITLE></H3>
+            </td>
+          </tr>
+          <tr>
+          	<td>
+            	<#MULTIFILTER>
+            </td>
+          </tr>
+        </table>
+			</td>
+    </tr>
+
+		<#ITEMLISTFORMAT>
+		<#ITEMLISTSEL>
+  </table>
+</div>
+
+<br />
+<div class="ui-widget-content ui-corner-bl ui-corner-br" >
+  <table border="0" cellspacing="0" cellpadding="2" >
+    <tr>
+    	<td colspan="2" align="center">
+      	<H3><#FORMATTITLE></H3>
+      </td>
+    </tr>
+
+  <#VARLISTROW>
+	<#VARLISTCOL>
+	<#VARLISTCTL>
+	<#VARLISTPAN>
+	<#VARLISTGRD>
+	<#ENTLISTABK>
+
+	<#VARLISTTALLY>
+	<#VARLISTWEIGHT>
+	<#ITEMLISTPERCENT>
+
+  <#ITEMLISTUNIVERSE>
+	<#ITEMLISTFILTER>
+  </table>
+</div>
+
+<br />
+<div class="ui-widget-header ui-corner-all" align="center" >
+  <#BUTTONSUBMIT>
+  <#BUTTONHELP>
+</div>
+
+</form>

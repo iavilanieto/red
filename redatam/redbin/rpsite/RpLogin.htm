@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>R+SP Login Page</title>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-Control" content="no-cache">
+
+  <link type="text/css" rel="stylesheet" href="/redatam/css/red.index.css" />
+</head>
+
+<body>
+	<form name="RpLogin" method="POST" action="<#WEBSERVER>/<#WEBSCRIPT>/<#WEBAPPLICATION>/Login?" >
+
+    <input type="HIDDEN" name="MAIN" value="<#MAIN>" >
+   	<input type="HIDDEN" name="BASE" value="<#BASE>" >
+  	<input type="HIDDEN" name="LANG" value="<#LANG>" >
+    <input type="hidden" name="MODE" value="MAIN" >
+
+		<table border="0" cellspacing="0" cellpadding="2">
+			<tr>
+					<td colspan="2">Login Access</td>
+			</tr>
+
+			<tr>
+					<td>User : </td>
+					<td><input type="text" name="USER"></td>
+			</tr>
+
+			<tr>
+					<td>Password : </td>
+					<td><input type="password" name="PWD"></td>
+			</tr>
+
+			<tr>
+					<td colspan="2">
+						<input type="submit" value="OK">
+						<input type="reset"  value="Cancel">
+					</td>
+			</tr>
+
+		</table>
+  </form>
+</body>
+
+</html>

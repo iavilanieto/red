@@ -1,0 +1,122 @@
+*****************  PANELS *************************************
+
+/--------------------------------------------------------------
+[PANELHEADER]
+HEIGHT=74
+COLOR=255.255.255
+PICTURES=2
+
+PICTURETOP1=0
+PICTURELEFT1=2
+PICTUREHEIGHT1=50
+PICTUREWIDTH1=512
+//PICTUREFILE1=%INLPATH\prt\Titulo_prt.bmp
+PICTUREFILE1=/redatam/nmir/Titulo_prt.jpg
+PICTUREHREF1=http://www.cepal.org/celade/redatam/
+PICTUREALT1=Sitio Oficial de Redatam
+
+PICTURETOP2=0
+PICTURELEFT2=600
+PICTUREHEIGHT2=50
+PICTUREWIDTH2=209
+PICTUREFILE2=%INLPATH\PRT\Celade_PRT.BMP
+
+/--------------------------------------------------------------
+[PANELINDEX]
+WIDTH=300
+COLOR=185.255.255
+FONTNAME=ARIAL
+LINES=NO
+
+/--------------------------------------------------------------
+[PANELINPUT]
+HEIGHT=200
+COLOR=185.255.255
+FONTSIZE=9
+TITLESIZE=8
+TITLEBOLD=YES
+COMBOSIZE=105
+COMBOSELSIZE=109
+
+/--------------------------------------------------------------
+[PANELRUN]
+HEIGHT=40
+COLOR=247.247.247
+TITLESIZE=8
+TITLEBOLD=YES
+
+SHOWSEL=YES
+SELTOP=10
+SELLEFT=130
+SELWIDTH=100
+SELCAPTIONTOP=12
+SELCAPTIONLEFT=10
+SELCAPTION=Área Geográfica:
+
+PICTURETOP=10
+PICTURELEFT=240
+PICTUREWIDTH=85
+PICTUREHEIGHT=25
+
+PICTURERUN=YES
+PICTURERUNFILE=%INLPATH\PRT\boton_run_PRT.bmp
+PICTURERUNHINT=Executar o Indicador
+PICTURERUNLEFT=275
+
+PICTURECLOSE=YES
+PICTURECLOSEFILE=%INLPATH\PRT\boton_home_PRT.bmp
+PICTURECLOSEHINT=Voltar para a Página Principal
+PICTURECLOSELEFT=365
+
+PICTUREVIEW=YES
+PICTUREVIEWWIDTH=30
+PICTUREVIEWHINT=Compilar e mostrar as instruções do programa Redatam+
+
+SHOWUNIV=YES
+UNIVCAPTION=Universo
+UNIVTOP=40
+UNIVLEFT=100
+UNIVWIDTH=135
+UNIVCAPTIONTOP=42
+UNIVCAPTIONLEFT=5
+
+PICTUREFILTER=YES
+PICTUREFILTERHINT=Construir una expresión asociada al Universo
+PICTUREFILTERTOP=40
+PICTUREFILTERWIDTH=30
+PICTUREFILTERLEFT=240
+
+/--------------------------------------------------------------
+//LA 2006.04.21
+[PANELPAGE]
+COLOR=TEAL
+
+FONTCOLOR=AGUA
+FONTNAME=Arial Narrow
+FONTSIZE=10
+
+HEIGHT=768
+
+/--------------------------------------------------------------
+//LA 2006.04.21
+[STATUSBAR]
+COLOR=TEAL
+HEIGHT=20
+
+FONTCOLOR=AGUA
+FONTNAME=Arial Narrow
+FONTSIZE=9
+
+/--------------------------------------------------------------
+[PANELOUTPUT]
+COLOR=255.255.255
+
+PICTURES=1
+
+PICTUREALIGN1=RIGHT
+PICTUREHEIGHT1=364
+PICTUREWIDTH1=600
+//PICTUREFILE1=%INLPATH\prt\center_main_prt.bmp
+PICTUREFILE1=/redatam/nmir/centroNM_prt.gif
+PICTUREHREF1=http://www.redatam.org/
+PICTUREALT1=Redatam Portal

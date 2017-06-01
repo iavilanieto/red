@@ -1,0 +1,48 @@
+/* 01. HEADER ================================================== */
+
+
+header {
+    padding: 0 10px;
+	height: 110px;
+	color: #FFF;
+	background:transparent repeat center center fixed;  /* DONT FORGET TO CHANGE IT TOO IN MEDIA.CSS */
+    background-attachment : fixed;  /* FIXED FOR IE */
+	background-color: #333;    
+    }
+ 
+header #logo {
+    margin: 0 auto;
+    max-width: 1240px;
+}
+
+header #logo img {
+    float: left;
+    height: 64px;
+    margin-left: 20px;
+    margin-top: 15px;
+    width: 64px
+}
+
+header #logo-font {
+    margin: 22px 0 0 10px;
+    float: left;
+}
+
+header #logo-font span {
+    float: left;
+    font-family: "Life Savers",cursive;
+    font-size: 32px;
+}
+
+header #monkkee-monk {
+    color: white;
+}
+
+header #monkkee-kee {
+    color: #FF8200;
+}
+
+#language_switcher {
+	float: right;
+	margin: 19px;
+}

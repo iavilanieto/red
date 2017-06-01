@@ -1,0 +1,29 @@
+﻿<form name="RpCmdSet" method="POST" action="<#WEBSERVER>/<#WEBSCRIPT>/<#WEBAPPLICATION>/CmdSet?">
+
+  <input type="HIDDEN" name="MAIN"    value="<#MAIN>">
+  <input type="HIDDEN" name="BASE"    value="<#BASE>">
+  <input type="HIDDEN" name="LANG"    value="<#LANG>">
+  <input type="HIDDEN" name="CODIGO"	value="XXUSUARIOXX">
+  <input type="HIDDEN" name="ITEM"    value="<#ITEMID>">
+  <input type="HIDDEN" name="MODE"		value="RUN">
+
+<div class="ui-widget-content ui-corner-all" >
+<table width="95%" border="0" cellspacing="0" cellpadding="5" height="100" >
+  <tr>
+    <td width="50%">
+      <textarea name="CMDSET" rows="22" cols="40" wrap="hard" autofocus ></textarea>
+    </td>
+    <td width="50%">
+      <textarea name="VARLIST" rows="22" cols="40" wrap="soft" readonly ><#VARLIST></textarea>
+    </td>
+  </tr>
+</table>
+</div>
+
+<br />
+<div class="ui-widget-header ui-corner-all" align="center">
+  <#BUTTONSUBMIT>
+  <#BUTTONHELP>
+</div>
+
+</form>

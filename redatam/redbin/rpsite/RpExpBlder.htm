@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>R+SP Expression Builder</title>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-Control" content="no-cache">
+
+  <link type="image/x-icon" rel="shortcut icon" href="/redatam/images/favicon.ico" />
+
+  <script type="text/javascript" src="/redatam/js/red.expBlder.js"></script>
+
+	<link type="text/css" rel="stylesheet" href="/redatam/css/red.input.css" />
+
+  <link type="text/css" rel="stylesheet" href="<#THEME>" />
+
+</head>
+
+<body <#ONLOADEVENT> >
+
+<form name="forma" method="POST" action="<#WEBSERVER>/<#WEBSCRIPT>/<#WEBAPPLICATION>/ExpressionBuilder?" >
+
+  <input type="HIDDEN" name="MAIN"      value="<#MAIN>">
+  <input type="HIDDEN" name="BASE"      value="<#BASE>">
+  <input type="HIDDEN" name="LANG"      value="<#LANG>">
+  <input type="HIDDEN" name="CODIGO"		value="xxUsuarioxx">
+  <input type="HIDDEN" name="INL"       value="<#INL_VALUE>">
+  <input type="HIDDEN" name="IS_FIRST"  value="X">
+
+<div class="ui-widget-content ui-corner-tl ui-corner-tr" >
+  <table border="0" cellpadding="0">
+    <tr>
+      <td colspan="3"><b><FILTERTITLE></b></td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <textarea name="FILTER_TXT" rows="3" cols="80"
+            ONFOCUS  ="storeCaret(this);"
+            ONSELECT ="storeCaret(this);"
+            ONCLICK  ="storeCaret(this);"
+            ONKEYUP  ="storeCaret(this);"
+        ><#FILTERTEXT></textarea>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<br />
+<div class="ui-widget-content ui-corner-bl ui-corner-br" >
+  <table>
+    <tr>
+      <td colspan="3" height="19">
+        <input type="button" name="Button" value="&nbsp;+&nbsp;" OnClick="JavaScript: Operacion(this,'+');">
+        <input type="button" name="Submit2" value="&nbsp;-&nbsp;" OnClick="JavaScript: Operacion(this,'-');">
+        <input type="button" name="Submit3" value="&nbsp;*&nbsp;" OnClick="JavaScript: Operacion(this,'*');">
+        <input type="button" name="Submit4" value="&nbsp;/&nbsp;" OnClick="JavaScript: Operacion(this,'/');">
+        &nbsp;
+        <input type="button" name="Submit5" value="&nbsp;=&nbsp;" OnClick="JavaScript: Operacion(this,'=');">
+        <input type="button" name="Submit6" value="&nbsp;&lt;&gt;&nbsp;" OnClick="JavaScript: Operacion(this,'<>');">
+        <input type="button" name="Submit7" value="&nbsp;&gt;&nbsp;" OnClick="JavaScript: Operacion(this,'>');">
+        <input type="button" name="Submit8" value="&nbsp;&gt;=&nbsp;" OnClick="JavaScript: Operacion(this,'>=');">
+        <input type="button" name="Submit9" value="&nbsp;&lt;" OnClick="JavaScript: Operacion(this,'<');">
+        <input type="button" name="Submit10" value="&nbsp;&lt;=&nbsp;" OnClick="JavaScript: Operacion(this,'<=');">
+        &nbsp;
+        <input type="button" name="Submit11" value="&nbsp;(&nbsp;" OnClick="JavaScript: Operacion(this,'(');">
+        <input type="button" name="Submit12" value="&nbsp;)&nbsp;" OnClick="JavaScript: Operacion(this,')');">
+        &nbsp;
+        <input type="button" name="Submit13" value="AND" OnClick="JavaScript: Operacion(this,'AND');">
+        <input type="button" name="Submit14" value="OR" OnClick="JavaScript: Operacion(this,'OR');">
+        &nbsp;
+        <input type="button" name="Submit13" value="Clear" OnClick="JavaScript: document.forma.FILTER_TXT.value=''">
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3"><hr noshade></td>
+    </tr>
+    <tr>
+      <td valign="top" width="20%" >
+       <#ENTLIST>
+      </td>
+      <td valign="top" width="40%">
+       <#VARLIST>
+      </td>
+      <td valign="top" width="40%">
+       <#LABELSLIST>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <#VARIABLES>
+        <#LABELS>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<br />
+<div class="ui-widget-header ui-corner-all" align="center" >
+  <#BUTTONFILTEROK>
+  <#BUTTONFILTERCANCEL>
+</div>
+<br />
+</form>
+</body>
+</html>

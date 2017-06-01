@@ -1,0 +1,108 @@
+/* === INTERNET EXPLORER 6 =====================================================
+ 
+ Style sheets applied with 'if IE6'. Needed to make basic functionality work
+ but the layout is not expected to look the same as in newer browsers. 
+ The CSS does not have to validate.
+
+============================================================================= */
+
+body {
+    /* IE6 whatever:hover behavior javascript */
+    behavior: url(/community/css/browsers/ie6hover.htc);
+}
+#header {
+    height: 0;
+    margin: 10px auto;
+    padding: 15px 5px 0 0;
+    border-bottom: 4px solid #cc0f16;
+    background: #2b2b2b;
+    font-size: 12px;
+}
+#logo {
+    top: -5px;
+}
+
+
+
+/* DROPDOWN */
+
+#header li {
+    position: relative;
+    z-index: 99999;
+}
+#header li,
+#header li a,
+#user .settings li,
+#user .settings li a {
+    width: 150px;
+    height: auto;
+    line-height: 2;
+}
+.settings ul,
+#header li ul {
+    position: absolute;
+    font-size: 11px;
+    display: none;
+}
+.settings:hover ul,
+#header li:hover ul {
+    display: block;
+}
+#header li li {
+    background: #cb0e15;
+}
+#header li li a {
+    border-bottom: 1px dotted #FF473F;
+    padding: 9px 15px;
+}
+
+
+/* USERBAR */
+
+#user li {
+    background-image: url(/community/graphics/dexter/menu.png);
+    background-repeat: no-repeat;
+}
+#user li,
+#user li a {
+    height: 40px;
+    width: 30px;
+}
+.settings ul {
+    right: 0px;
+}
+
+
+/* LOGIN/SIGNUP */
+
+#loginsignup li,
+#loginsignup li a {
+    height: auto;
+    width: 75px;
+}
+#loginsignup li a {
+    border: 0;
+    padding: 0;
+}
+
+
+
+.button {
+    padding: 0;
+}
+.button .ie-button {
+    display: block;
+    border: 1px solid;
+    padding: 14px 22px;
+}
+.button .ie-button {
+    border-top-color: #6fc9f3;
+    border-left-color: #6ec8f1;
+    border-right-color: #076795;
+    border-bottom-color: #076795;
+}
+
+#postform, 
+#mymsg {
+    z-index: -1;
+}

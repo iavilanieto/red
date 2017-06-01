@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>R+SP Selection Builder</title>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+  <link type="image/x-icon" rel="shortcut icon" href="/redatam/images/favicon.ico" />
+
+  <script type="text/javascript" src="/redatam/js/jquery-current.min.js"></script>
+
+  <script type="text/javascript" src="/redatam/js/red.selBlder.js"></script>
+
+	<link type="text/css" rel="stylesheet" href="/redatam/css/themes/pepper-grinder/jquery-ui.min.css" />
+
+	<link type="text/css" rel="stylesheet" href="/redatam/css/red.input.css" />
+</head>
+
+<body>
+<form name='SELECTION' action='Selection' method='POST'>
+  <input type="HIDDEN" name="MAIN"          value="<#MAIN>">
+	<input type='hidden' name='BASE'          value="<#BASE>">
+	<input type='hidden' name='LANG'          value="<#LANG>">
+	<input type='hidden' name='NODE'>
+	<input type='hidden' name='EXPAND'        value='TRUE'>
+	<input type='hidden' name='CODES'         value='0,1,'>
+	<input type='hidden' name='CURCHECK'      value='XX'>
+	<input type='hidden' name='CURCHECKVALUE' value='XX'>
+	<input type='hidden' name='FILENAME'      value="<#SELFILE>">
+
+<div class="ui-widget-content ui-corner-tl ui-corner-tr">
+   <table width='98%' align='center' border='0' cellspacing='0' >
+     <tr bgcolor='#336699'>
+       <td colspan='3'>&nbsp;</td>
+     </tr>
+     <tr bgcolor='#336699'>
+       <td colspan='3'><div align='center'><font color='#FFFFFF' size='3'face='Verdana, Arial, Helvetica, sans-serif'><strong>Red7 - Online Selection</strong></font></div></td>
+     </tr>
+     <tr bgcolor='#336699'>
+       <td colspan='3'><div align='right'><font color='#FFFFFF' size='1'face='Verdana, Arial, Helvetica, sans-serif'><strong>Version 1.0</strong></font></div></td>
+     </tr>
+     <tr >
+       <td colspan='3'>&nbsp;        </td>      </tr>
+       <td colspan='3' >
+     <table width='100%' border='1' cellspacing='1' bgcolor='#6487dc'>      <tr bgcolor='#FFFFFF'><td>      <table><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
+     <tr>
+       <td colspan=3><a href='#' OnClick='JavaScript:return detail(0);' >Base: nmiresp</a></td>
+   </tr>
+     <tr>
+       <td width='20'><input type='checkbox' name='chk1' value='TRUE' OnClick='check( this,1 );'>&nbsp;</td>
+       <td colspan=2><font size="2" face="Verdana, Arial, Helvetica, sans-serif" color=#FF0000>(*)&nbsp;</font><a href='#' OnClick='JavaScript:return detail(1);' >NMIR</a></td>
+   </tr>
+     <tr>
+       <td width='20'>&nbsp;</td>
+       <td width='20'><input type='checkbox' name='chk2' value='FALSE' OnClick='check( this,2 );'>&nbsp;</td>
+       <td><a href='#' OnClick='JavaScript:return detail(2);' >5 "Santa Maria",</a></td>
+   </tr>
+     <tr>
+       <td width='20'>&nbsp;</td>
+       <td width='20'><input type='checkbox' name='chk3' value='FALSE' OnClick='check( this,3 );'>&nbsp;</td>
+       <td><a href='#' OnClick='JavaScript:return detail(3);' >6 "Santiago",</a></td>
+   </tr>
+     <tr>
+       <td width='20'>&nbsp;</td>
+       <td width='20'><input type='checkbox' name='chk4' value='FALSE' OnClick='check( this,4 );'>&nbsp;</td>
+       <td><a href='#' OnClick='JavaScript:return detail(4);' >7 "Bolivar",</a></td>
+   </tr>
+     <tr>
+       <td width='20'>&nbsp;</td>
+       <td width='20'><input type='checkbox' name='chk5' value='TRUE'checked OnClick='check( this,5 );'>&nbsp;</td>
+       <td><a href='#' OnClick='JavaScript:return detail(5);' >8 "Marbella",</a></td>
+   </tr>
+     <tr>
+       <td width='20'>&nbsp;</td>
+       <td width='20'><input type='checkbox' name='chk6' value='FALSE' OnClick='check( this,6 );'>&nbsp;</td>
+       <td><a href='#' OnClick='JavaScript:return detail(6);' >9 "Puerto Nuevo",</a></td>
+   </tr>
+     <td width='40%' valign='top'>
+			<font color='#336699' size='2'face='Verdana, Arial, Helvetica, sans-serif'><strong>Selection text</strong></font>
+        	<br><br>
+        	<textarea name='seltext' rows='7' cols='40'>COMUNA       8 "Marbella",</textarea>
+        </td>
+		</tr>
+	</table>
+</div>
+
+<br />
+<div class="ui-widget-header ui-corner-all" align="center">
+  <#BUTTONFILTEROK>
+  <#BUTTONFILTERCANCEL>
+</div>
+
+</form>
+</body>
+</html>

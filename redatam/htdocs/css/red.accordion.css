@@ -1,0 +1,112 @@
+body
+{
+  color:#000000;
+  font-size: 7.5pt;
+  font-family: Arial, Helvetica, sans-serif, Verdana;
+}
+
+A:visited {color:#800000;text-decoration: none}
+A:link {color:#00005F;text-decoration: none}
+A:active {color:#008000;text-decoration: none}
+A:hover {color:#9D9D00; text-decoration: none;}
+
+#root1
+{
+  padding-left: 10px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-right: 10px;
+}
+
+ul#root, ul#root ul
+{
+  list-style: none;
+  margin: 0;
+}
+
+1ul#root
+{
+  border-bottom: 1px solid #000E2E;
+}
+
+1ul#root li
+{
+  border: 1px solid #000E2E; border-bottom: none;
+}
+
+ul#root ul li
+{
+  border: none;
+  border-bottom1: 1px solid #C2C8D1;
+  color: #999;
+  padding11: 5px 10px;
+}
+
+ul#root ul li:last-child
+{
+  border-bottom:1 none;
+}
+
+ul#root b
+{
+  1background: #F4FFF9;
+  1color: #999;
+  display: block;
+  font-size: 11px;
+  paddingqqq: 5px 5px;
+  padding-left: 20px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  text-decoration: none;
+}
+
+111ul#root b:hover
+{
+  background: #00B9D2;
+  color1: #fff;
+}
+
+ul#root li ul a
+{
+  border-bottom: 1px solid #00B9D2;
+  color: #025185;
+  text-decoration: none;
+}
+
+11ul#accordion li ul hover
+{
+  border-bottom: none;
+}
+
+11ul#root li ul .date
+{
+  padding-right: 10px;
+}
+
+ul#root li ul
+{
+  padding-left: 10px;
+}
+
+11a.ul#root li.ui-accordion-selected heading
+{
+  background: #025185; color: #fff;
+}
+
+a.selected
+{
+  border : 1px solid #ACBECE;
+  background-color:yellow;
+}
+
+a.active
+{
+  border : 1px solid #ACBECE;
+  background-color:yellow;
+}
+
+a
+{
+  display: block;
+  cursor: pointer;
+}

@@ -1,0 +1,35 @@
+#redWork > .ui-panel {
+    padding: 0;
+    margin: 1em 0.5em 0 0.5em;
+    -webkit-box-shadow: 0px 1px 3px rgba(0,0,0,0.3);
+    box-shadow: 0px 1px 3px rgba(0,0,0,0.3);
+}
+#redWork .ui-widget-header {
+  padding: 1em 1em 1em 1em;
+  position: relative;
+}
+#redWork > .ui-panel .ui-widget-header{
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+#redWork .ui-panel .ui-panel-title {
+    margin: 0.1em 16px 0.2em 0;
+}
+#redWork .ui-panel .ui-panel-titlebar-icon {
+    float: right;
+}
+#redWork .ui-panel .ui-panel-titlebar-icon, #redWork .ui-panel .ui-panel-titlebar-icon:hover, #redWork .ui-panel .ui-panel-titlebar-icon:focus {
+    margin-left: 0.2em;
+    margin-top: -0.2em;
+}
+#redWork .ui-panel .ui-panel-content {
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    padding: 0.5em 1em;
+}
+#redWork .ui-panel .ui-panel-footer {
+    border-width: 1px 0 0;
+    margin: 0.5em 0 0;
+    padding: 0.5em 1em;
+    text-align: left;
+}

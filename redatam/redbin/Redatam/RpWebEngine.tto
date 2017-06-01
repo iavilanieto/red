@@ -1,0 +1,7 @@
+[System]
+Decimals=2
+StringSize=64
+
+[MLDB]
+Language=ESP
+
