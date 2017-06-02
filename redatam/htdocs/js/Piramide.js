@@ -2,6 +2,7 @@ function generarPiramide(){
     return {
         "$schema":esquema ,
         "height": 300+(5*datosJSON.length),
+        "width": datosJSON.length*35,
         "padding": 5,
 
         "signals": [
@@ -10,6 +11,21 @@ function generarPiramide(){
             { "name": "width", "update": "2 * chartWidth + chartPad" },
             { "name": "year", "value": 2000 }
         ],
+         "legends": [
+                  {
+                    "fill": "color",
+                    "orient": "top-right",
+                    "encode": {
+                      "symbols": {
+                        "update": {
+                          "shape": {
+                            "value": "square"
+                          }
+                        }
+                      }
+                    }
+                  }
+                ],
 
         "data": [
             {
@@ -25,11 +41,43 @@ function generarPiramide(){
                         "fields": ["col3","col4"]
                     }
                 ]
-            }
+            },
+          {
+            "name": "cabecera",
+            "values": d2
+          },
+          {
+            "name": "titulos",
+            "source": "cabecera",
+            "transform": [
+              {
+                "type": "fold",
+                "fields": [
+                  "col2",
+                  "col3",
+                  "col4",
+                  "col5"
+                ]
+              }
+            ]
+          }
         ],
 
 
         "scales": [
+        {
+            "name": "color",
+            "type": "ordinal",
+            "domain": {"data": "cabecera","fields": [
+                "col3",
+                "col4"
+              ]
+        },
+            "range": [
+              "#1f77b4",
+              "grey"
+            ]
+          },
             {
                 "name": "y",
                 "type": "band",
@@ -38,6 +86,7 @@ function generarPiramide(){
                 "domain": {"data": "population", "field": "col2"}
             }
         ],
+
         "marks": [
             {
                 "type": "text",
@@ -128,7 +177,7 @@ function generarPiramide(){
                                 "y": {"scale": "y", "field": "col2"},
                                 "height": {"scale": "y", "band": 1, "offset": -1},
                                 "fillOpacity": {"value": 0.6},
-                                "fill": {"value": "#0000"}
+                                "fill": {"value": "#000"}
                             }
                         }
                     }

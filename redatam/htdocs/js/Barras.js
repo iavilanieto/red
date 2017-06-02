@@ -1,7 +1,6 @@
 function generarBarras(){
     return {
         "$schema": esquema,
-
         "width": datosJSON.length*35,
         "height": datosJSON.length+200,
         "padding": 5,
@@ -19,9 +18,37 @@ function generarBarras(){
                         "fields": ["col2","col3","col4","col5"]
                     }
                 ]
+            },
+            ,
+            {
+                "name": "cabecera",
+                "values": d2
+            },
+            {
+                "name": "titulos",
+                "source": "cabecera",
+                "transform": [
+                        {
+                        "type": "fold", 
+                        "fields": ["col2","col3","col4","col5"]
+                        }   
+                ]
             }
         ],
         "scales": [
+        {
+            "name": "color",
+            "type": "ordinal",
+            "domain": {"data": "cabecera","fields": [
+                "col3",
+                "col4"
+              ]
+        },
+            "range": [
+              "#1f77b4",
+              "grey"
+            ]
+          },
             {
                 "name": "x",
                 "type":  "band",
@@ -39,7 +66,21 @@ function generarBarras(){
                 "domain": {"data": "personas", "field": "col5"},
             }
         ],
-
+     "legends": [
+          {
+            "fill": "color",
+            "orient": "top-right",
+            "encode": {
+              "symbols": {
+                "update": {
+                  "shape": {
+                    "value": "square"
+                  }
+                }
+              }
+            }
+          }
+        ],
         "axes": [
             {"orient": "bottom", "scale": "x", "zindex": 1},
             {"orient": "left", "scale": "y", "zindex": 1}
@@ -83,8 +124,8 @@ function generarBarras(){
                                 "width": {"scale": "pos", "band": .5},
                                 "y": {"scale": "y", "field": "col3"},
                                 "y2": {"scale": "y", "value": 0},
-                                "fill": {"value": "grey"}
-                            } 
+                                "fill": {"value": "#1f77b4"}
+                            }
                         }
                     },{
                         "name": "bars1",
@@ -96,7 +137,7 @@ function generarBarras(){
                                 "width": {"scale": "pos", "band": 0.5},
                                 "y": {"scale": "y", "field": "col4"},
                                 "y2": {"scale": "y", "value": 0},
-                                "fill": {"value": "#659CCA"}
+                                "fill": {"value": "grey"}
                             } 
                         }
                     }

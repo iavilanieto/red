@@ -124,6 +124,7 @@ Export:
                         <script>
 
                             var datosJSON = {}
+                            var d2 = {};
                             function iniciarConsulta() {
 
                                 var tabla = $(".CSSTableGenerator table").clone();
@@ -142,6 +143,10 @@ Export:
                                 console.log(cadenaJSON);
                                 cadenaJSON = cadenaJSON.replace(/\"([0-9]+)\"/g,"$1");
                                 datosJSON = JSON.parse(cadenaJSON);
+                                d2 = JSON.parse(cadenaJSON);
+                                delete d2[0];
+                                d2=d2[1];
+                                console.log(d2);
                                 $.each(datosJSON, function( index, item ) {
                                     var vacio = 1;
                                     var esTotal = 0;
