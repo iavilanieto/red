@@ -124,7 +124,7 @@ function generarPiramide(){
                 ],
 
                 "axes": [
-                    {"orient": "bottom", "scale": "x", "format": "s"}
+                    {"orient": "bottom", "scale": "x", "format": "s", "title":"# Casos"}
                 ], 
                 "marks": [
                     {
@@ -164,7 +164,7 @@ function generarPiramide(){
                 ],
 
                 "axes": [
-                    {"orient": "bottom", "scale": "x", "format": "s"}
+                    {"orient": "bottom", "scale": "x", "format": "s", "title":"# Casos"}
                 ], 
                 "marks": [
                     {

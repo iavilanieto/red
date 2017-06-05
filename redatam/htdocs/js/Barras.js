@@ -7,7 +7,7 @@ function generarBarras(){
         "data": [
             {
                 "name": "personas",
-                "values": datosJSON
+                "values": personas2
             },
             {
                 "name": "valores",
@@ -82,8 +82,8 @@ function generarBarras(){
           }
         ],
         "axes": [
-            {"orient": "bottom", "scale": "x", "zindex": 1},
-            {"orient": "left", "scale": "y", "zindex": 1}
+            {"orient": "bottom", "scale": "x", "zindex": 1, "title":"Grupos Quinquenales de edad"},
+            {"orient": "left", "scale": "y", "zindex": 1,"title":"Total"}
         ],
 
         "marks": [

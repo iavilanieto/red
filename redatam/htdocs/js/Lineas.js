@@ -75,8 +75,8 @@ function generarLineas(){
               ]
             },
             "range": [
-              "#333",
-              "#fd3d3d"
+              "#1f77b4",
+              "grey"
             ]
           },
           {
@@ -118,11 +118,13 @@ function generarLineas(){
         "axes": [
           {
             "orient": "bottom",
-            "scale": "x"
+            "scale": "x",
+            "title":"Grupos Quinquenales de edad"
           },
           {
             "orient": "left",
-            "scale": "y"
+            "scale": "y",
+            "title":"Total"
           }
         ],
         "marks": [
@@ -145,7 +147,7 @@ function generarLineas(){
                       "field": "col3"
                     },
                     "stroke": {
-                      "value": "#333"
+                      "value": "grey"
                     },
                     "strokeWidth": {
                       "value": 2
@@ -182,7 +184,7 @@ function generarLineas(){
                       "field": "col4"
                     },
                     "stroke": {
-                      "value": "#fd3d3d"
+                      "value": "#1f77b4"
                     },
                     "strokeWidth": {
                       "value": 2
