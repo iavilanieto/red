@@ -7,7 +7,7 @@ function generarPie(){
     "data": [
     {
       "name": "table",
-      "values": personas2,
+      "values": datosPersonas,
       "transform": [
         {
           "type": "pie","field": "col3"

@@ -1,8 +1,8 @@
 function generarLineas(){
     return {
         "$schema": esquema,
-        "width": datosJSON.length*35,
-        "height": datosJSON.length+200,
+        "width": datosPersonas.length*35,
+        "height": datosPersonas.length+200,
         "padding": 5,
         "signals": [
           {
@@ -27,7 +27,7 @@ function generarLineas(){
         "data": [
           {
             "name": "personas",
-            "values": personas2
+            "values": datosPersonas
           },
           {
             "name": "table",

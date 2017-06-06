@@ -122,9 +122,10 @@ Export:
                         </div>
                         <br/>
                         <script>
-
+                            var esquema="https://vega.github.io/schema/vega/v3.0.json";
                             var datosJSON = {}
                             var d2 = {};
+                            var datosPersonas = [];
                             function iniciarConsulta() {
 
                                 var tabla = $(".CSSTableGenerator table").clone();
@@ -140,13 +141,11 @@ Export:
                                     headings: ["col1", "col2", "col3", "col4", "col5", "col6", "col7", "col8", "col9", "col10"]
                                 });
                                 cadenaJSON = JSON.stringify(tablaTransformada).replace(/([0-9]+),([0-9]+)/g,"$1$2");
-                                console.log(cadenaJSON);
                                 cadenaJSON = cadenaJSON.replace(/\"([0-9]+)\"/g,"$1");
                                 datosJSON = JSON.parse(cadenaJSON);
                                 d2 = JSON.parse(cadenaJSON);
                                 delete d2[0];
                                 d2=d2[1];
-                                console.log(d2);
                                 $.each(datosJSON, function( index, item ) {
                                     var vacio = 1;
                                     var esTotal = 0;
@@ -166,20 +165,20 @@ Export:
                                         delete datosJSON[index];
                                     }
                                 });
+                                //delete datosJSON[(datosJSON.length)-1];
+                                $.each(datosJSON, function(item){
+                                    if (datosJSON[item]!==undefined) 
+                                        {datosPersonas.push(datosJSON[item])};
+                                        console.log(datosJSON[item]);
+                                });
+                                datosPersonas.pop();
+                                console.log(datosPersonas);
+                                //console.log(datosJSON.length-1);
                                 $("#tab-din").empty();
                                 $("#tab-din").append("<ul/><div><button type=\"button\" id=\"pi\" onclick=\"iniciarConsulta1()\">Piramide</button><button type=\"button\" id=\"ba\" onclick=\"iniciarConsulta2()\">Barras</button><button type=\"button\" id=\"es\" onclick=\"iniciarConsulta3()\">Lineas</button><button type=\"button\" id=\"pie\" onclick=\"iniciarConsulta4()\">Pie</button></div><ul/><div><div id=\"population-pyramid\" class=\"view\"></div></div>");
                                 iniciarConsulta1();
-                                console.log(datosJSON);
-/*
-                                var view = new vega.View(vega.parse(generarPiramide()), {
-                                    loader: vega.loader(),
-                                    logLevel: vega.Warn,
-                                    renderer: 'canvas'
-                                }).initialize('#population-pyramid').hover().run();
-  */                              var selected_value = [];                                
+                                var selected_value = [];                                
                             }
-var esquema="https://vega.github.io/schema/vega/v3.0.json";
-    datosJSON={};
 
     function iniciarConsulta1(){
         $("#population-pyramid").empty();
