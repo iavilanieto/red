@@ -30,6 +30,7 @@ function generarPie(){
 
     "marks": [
       {
+        "name": "arcs",
         "type": "arc",
         "from": {"data": "table"},
         "encode": {
@@ -45,6 +46,24 @@ function generarPie(){
         }
       },
       {
+          "type": "text",
+          "from": {"data": "arcs"},
+          "encode": {
+            "enter": {
+              "x": {"field": "x", "offset": -5},
+              "y": {"field": "y", "offset": {"field": "height", "mult": 0.5}},
+              "radius": {"value":150,"offset": 8},  
+           "theta": {"signal": "(datum.startAngle + datum.endAngle)/2"},
+              "fill": {"value": "#000"},
+              "align": {"value": "center"},
+              "baseline": {"value": "bottom"},
+              "text": {"field": "col2"}
+            }
+          }
+        }
+
+      /*,
+      {
         "type": "text",
         "from": {"data": "table"},
         "encode": {
@@ -59,7 +78,7 @@ function generarPie(){
             "text": {"field": "col2"}
           }
         }
-      }
+      }*/
     ]
   }
 }

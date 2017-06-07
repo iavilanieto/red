@@ -15,6 +15,7 @@
         <script src="lineas.js"></script>
         <script src="Pie.js"></script>
         <script src="Mapa.js"></script>
+        <script src="Columnas.js"></script>
         <script src="NMIRDIST.geojson"></script>
         <script src="world-110m.json"></script>
 
@@ -27,6 +28,7 @@
             <button type="button" id="es" onclick="iniciarConsulta3()">Lineas</button>
             <button type="button" id="Pie" onclick="iniciarConsulta4()">Pie</button>
             <button type="button" id="map" onclick="iniciarConsulta5()">Mapa</button>
+            <button type="button" id="colum" onclick="iniciarConsulta6()">Columnas</button>
         </div>
         <ul/>
         <div>
@@ -89,4 +91,13 @@
             renderer: 'canvas'
         }).initialize('#population-pyramid').hover().run();
     }
+    function iniciarConsulta6(){
+     $("#Tabpopulation").empty();
+    $("#Tabpopulation").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
+    var view = new vega.View(vega.parse(generarColumnas()), {
+        loader: vega.loader(),
+         logLevel: vega.Warn,
+        renderer: 'canvas'
+    }).initialize('#population-pyramid').hover().run();
+ }
 </script>
