@@ -22,7 +22,7 @@ function generarPie(){
         "range": {"scheme": "category20"}
       }
     ],
-    "marks": [
+    "marks": [    
       {
         "type": "arc",
         "from": {
@@ -85,6 +85,7 @@ function generarPie(){
               },
               "mult": 0.5
             },
+            "angle": {"value": 55},
             "radius": {
               "value": 150,
               "offset": 8
