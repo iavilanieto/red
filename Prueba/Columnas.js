@@ -16,7 +16,12 @@ function generarColumnas(){
                 "transform": [
                     {
                         "type": "fold", 
-                        "fields": ["col2","col3","col4","col5"]
+                        "fields": [
+                        "col2",
+                        "col3",
+                        "col4",
+                        "col5"
+                        ]
                     }
                 ]
             }
@@ -54,13 +59,22 @@ function generarColumnas(){
         "input": "select",
         "options": ["col1","col2","col3","col4","col5","col6"]
       }
+    },    
+    {
+      "name": "Barras3",
+      "value": "col5",
+      "bind": {
+        "input": "select",
+        "options": ["col1","col2","col3","col4","col5","col6"]
+      }
     },
 
     {
       "name": "sex", "value": "Todos",
       "bind": {"input": "radio", "options": ["Hombres", "Mujeres", "Todos"]}
     }
-    ],
+    ]
+    ,
         "scales": [
             {
                 "name": "x",
@@ -68,7 +82,7 @@ function generarColumnas(){
                 "range": "width",
                 "nice": true,
                 "domain": {"data": "personas", "field": {"signal":"EjeX"}},
-                "padding": 0.1
+                "padding": 0.3
             },
             {
                 "name": "y",
@@ -111,7 +125,7 @@ function generarColumnas(){
                         "name": "pos",
                         "type": "band",
                         "range": "height",
-                        "domain": {"data": "facet", "field": {"signal":"Barras1"}}
+                        "domain": {"data": "facet", "fields": [{"signal":"Barras1"}," "]}
                     }
                 ],
                 "marks": [
@@ -120,18 +134,12 @@ function generarColumnas(){
                         "from": {"data": "facet"},
                         "type": "rect",
                         "encode": {
-                               "enter": {
-                                "x": {"scale": "pos","field": {"signal":"Barras1"},"band": 0.5},
+                            "update":{
+                                "x": {"scale": "pos","band": 0},
                                 "y": {"scale": "y", "field": {"signal":"Barras1"}},
                                 "width": {"scale": "pos", "band": 0.5},
                                 "y2": {"scale": "y", "value": 0},
                                 "fill": {"value": "grey"}
-                            }, 
-                            "update":{
-                                "x": {"scale": "pos","field": {"signal":"Barras1"},"band": 0.5},
-                                "y": {"scale": "y", "field": {"signal":"Barras1"}},
-                                "width": {"scale": "pos", "band": 0.5},
-                                "y2": {"scale": "y", "value": 0},
                         }
                       }
                     },
@@ -140,21 +148,30 @@ function generarColumnas(){
                         "from": {"data": "facet"},
                         "type": "rect",
                         "encode": {
-                            "enter": {
-                                "x": {"scale": "pos","field": {"signal":"Barras2"},"band": 0},
+                            "update":{
+                                "x": {"scale": "pos","band": 0.5},
                                 "y": {"scale": "y", "field": {"signal":"Barras2"}},
                                 "width": {"scale": "pos", "band": 0.5},
                                 "y2": {"scale": "y", "value": 0},
                                 "fill": {"value": "#659CCA"}
-                            }, 
-                            "update":{
-                                "x": {"scale": "pos","field": {"signal":"Barras2"},"band": 0},
-                                "y": {"scale": "y", "field": {"signal":"Barras2"}},
-                                "width": {"scale": "pos", "band": 0.5},
-                                "y2": {"scale": "y", "value": 0},
                         }
                       }
-                    }]
+                    },
+                    {
+                        "name": "bars2",
+                        "from": {"data": "facet"},
+                        "type": "rect",
+                        "encode": {
+                            "update":{
+                                "x": {"scale": "pos","band": 1},
+                                "y": {"scale": "y", "field": {"signal":"Barras3"}},
+                                "width": {"scale": "pos", "band": 0.5},
+                                "y2": {"scale": "y", "value": 0},
+                                "fill": {"value": "red"}
+                        }
+                      }
+                    }
+                    ]
                   }
             ]
 

@@ -1,25 +1,20 @@
 function generarPie(){
     return {
-    "$schema": "https://vega.github.io/schema/vega/v3.0.json",
+    "$schema": esquema,
     "width": 400,
     "height": 400,
-    "autosize": "none",
-
 
     "data": [
-      {
-        "name": "table",
-        "values": personas2,
-        "transform": [
-          {
-            "type": "pie",            
-              "field": "col3"
-           }
-            ]
-         
-      }
+    {
+      "name": "table",
+      "values": personas2,
+      "transform": [
+        {
+          "type": "pie","field": {"signal": "Seleccion"}
+        }
+      ]
+    }
     ],
-
     "scales": [
       {
         "name": "color",
@@ -27,58 +22,72 @@ function generarPie(){
         "range": {"scheme": "category20"}
       }
     ],
-
-    "marks": [
+    "signals": [
+    {
+      "name": "Seleccion",
+      "value": "col3",
+      "bind": {
+        "input": "select",
+        "options": ["col1","col2","col3","col4","col5","col6"]
+      }
+    }
+    ],
+    "marks": [    
       {
-        "name": "arcs",
         "type": "arc",
         "from": {"data": "table"},
         "encode": {
           "enter": {
-            "fill": {"scale": "color", "field": "col3"},        
-            "x": {"field": {"group": "width"}, "mult": 0.5},
-            "y": {"field": {"group": "height"}, "mult": 0.5},
+            "tooltip": {
+              "signal": "Seleccion"
+            },
+            "fill": {"scale": "color","field": {"signal":"Seleccion"}},
+            "x": {"field": {"group": "width"},"mult": 0.5},
+            "y": {"field": {"group": "height"},"mult": 0.5},
             "startAngle": {"field": "startAngle"},
             "endAngle": {"field": "endAngle"},
-            "innerRadius": {"value": 0},
-            "outerRadius": {"signal": "width / 3"}
+            "innerRadius": {
+              "value": 0
+            },
+            "outerRadius": {
+              "signal": "width / 3"
+            }
+          },
+          "update": {
+            "fill": {"scale": "color","field": {"signal":"Seleccion"}
+          },
+            
+          },
+          "hover": {
+            "fill": {
+              "value": "grey"
+            }
           }
         }
       },
       {
-          "type": "text",
-          "from": {"data": "arcs"},
-          "encode": {
-            "enter": {
-              "x": {"field": "x", "offset": -5},
-              "y": {"field": "y", "offset": {"field": "height", "mult": 0.5}},
-              "radius": {"value":150,"offset": 8},  
-           "theta": {"signal": "(datum.startAngle + datum.endAngle)/2"},
-              "fill": {"value": "#000"},
-              "align": {"value": "center"},
-              "baseline": {"value": "bottom"},
-              "text": {"field": "col2"}
-            }
-          }
-        }
-
-      /*,
-      {
         "type": "text",
-        "from": {"data": "table"},
+        "from": {
+          "data": "table"
+        },
         "encode": {
           "enter": {
             "x": {"field": {"group": "width"}, "mult": 0.5},
             "y": {"field": {"group": "height"}, "mult": 0.5},
-            "radius": {"value":150,"offset": 8},
+            "angle": {"value": 55},
+            "radius": {"value": 150,"offset": 8},
             "fill": {"value": "#000"},
-           "theta": {"signal": "(datum.startAngle + datum.endAngle)/2"},
+            "theta": {"signal": "(datum.startAngle + datum.endAngle)/2"},
             "align": {"value": "center"},
             "baseline": {"value": "bottom"},
-            "text": {"field": "col2"}
+            "text": {"field": {"signal":"Seleccion"}},
+            "fontSize": {"value": 12},
+          }, 
+          "update":{
+            "text": {"field": {"signal":"Seleccion"}}
           }
         }
-      }*/
+      }
     ]
   }
 }
