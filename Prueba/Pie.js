@@ -38,52 +38,38 @@ function generarPie(){
         "from": {"data": "table"},
         "encode": {
           "enter": {
-            "tooltip": {
-              "signal": "Seleccion"
-            },
-            "fill": {"scale": "color","field": {"signal":"Seleccion"}},
             "x": {"field": {"group": "width"},"mult": 0.5},
-            "y": {"field": {"group": "height"},"mult": 0.5},
-            "startAngle": {"field": "startAngle"},
-            "endAngle": {"field": "endAngle"},
-            "innerRadius": {
-              "value": 0
-            },
-            "outerRadius": {
-              "signal": "width / 3"
-            }
+            "y": {"field": {"group": "height"},"mult": 0.5}
           },
           "update": {
-            "fill": {"scale": "color","field": {"signal":"Seleccion"}
-          },
-            
+            "tooltip": {
+            "field": {"signal":"Seleccion"}
+            },
+            "fill": {"scale": "color","field": {"signal":"Seleccion"}},
+            "startAngle": {"field": "startAngle"},
+            "endAngle": {"field": "endAngle"},
+            "innerRadius": {"value": 0},
+            "outerRadius": {"signal": "width / 3"}
           },
           "hover": {
-            "fill": {
-              "value": "grey"
-            }
+            "fill": {"value": "grey"}
           }
         }
       },
       {
         "type": "text",
-        "from": {
-          "data": "table"
-        },
+        "from": {"data": "table"},
         "encode": {
           "enter": {
             "x": {"field": {"group": "width"}, "mult": 0.5},
             "y": {"field": {"group": "height"}, "mult": 0.5},
             "angle": {"value": 55},
-            "radius": {"value": 150,"offset": 8},
+            "radius": {"value": 150,"offset": 8}
+          }, 
+          "update":{
             "fill": {"value": "#000"},
             "theta": {"signal": "(datum.startAngle + datum.endAngle)/2"},
             "align": {"value": "center"},
-            "baseline": {"value": "bottom"},
-            "text": {"field": {"signal":"Seleccion"}},
-            "fontSize": {"value": 12},
-          }, 
-          "update":{
             "text": {"field": {"signal":"Seleccion"}}
           }
         }
