@@ -1,3 +1,11 @@
+function obtenerListadoOpciones(nombreCol) {
+    var arreglo = []
+    for(var i=0;i<personas2.length;i++) {
+        arreglo.push(personas2[i][nombreCol]);
+    }
+    return arreglo;
+}
+
 function generarPie(){
     return {
     "$schema": esquema,
@@ -28,7 +36,7 @@ function generarPie(){
       "value": "col3",
       "bind": {
         "input": "select",
-        "options": ["col1","col2","col3","col4","col5","col6"]
+        "options": obtenerListadoOpciones("col2")
       }
     }
     ],
