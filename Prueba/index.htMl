@@ -30,6 +30,7 @@
             <button type="button" id="map" onclick="iniciarConsulta5()">Mapa</button>
             <button type="button" id="colum" onclick="iniciarConsulta6()">Columnas</button>
         </div>
+
         <ul/>
         <div>
             <div id="Tabpopulation" align="left"></div>
@@ -80,6 +81,26 @@
             logLevel: vega.Warn,
             renderer: 'canvas'
         }).initialize('#population-pyramid').hover().run();
+        $('select[name=Seleccion]').change(function(){
+            arr=Datos($('select[name=Seleccion]').val());
+        
+        view.on(view.vega.parse(generarPie()));
+        });
+
+      /*
+        view = new vega.View(vega.parse(generarPie()), {
+            loader: vega.loader(),
+            logLevel: vega.Warn,
+            renderer: 'canvas'
+        }).initialize('#population-pyramid').hover().run();
+//             console.log($('select[name=Seleccion]').val());
+        var hoverfollower = view.add( function() {
+        console.log(d3.select("select[name=Seleccion]").text(JSON.stringify(view._signals.Seleccion.option)));
+        d3.select("select[name=Seleccion]").text(JSON.stringify(view._signals.Seleccion.value));
+      }
+    );
+        view.on(view._signals.Seleccion, hoverfollower);
+*/
         console.log(personas2);
     }
     function iniciarConsulta5(){
@@ -93,12 +114,16 @@
     }
     function iniciarConsulta6(){
      $("#Tabpopulation").empty();
-    $("#Tabpopulation").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
-    var view = new vega.View(vega.parse(generarColumnas()), {
+    $("#Tabpopulation").append("<div><button type=\"button\" id=\"config\">Graficar</button><input type=\"text\" id=\"text_config\"/></div><div><div id=\"population-pyramid\" class=\"view\"></div></div>");
+    $("#config").click(function(){
+        console.log($("#text_config").val());
+    var view = new vega.View(vega.parse(generarColumnas($("#text_config").val())), {
         loader: vega.loader(),
          logLevel: vega.Warn,
         renderer: 'canvas'
     }).initialize('#population-pyramid').hover().run();
+        
+    });
     console.log(personas2);
  }
 </script>

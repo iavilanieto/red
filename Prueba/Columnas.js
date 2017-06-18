@@ -1,4 +1,56 @@
-function generarColumnas(){
+function crearSeleccion(n){
+    var arr=[];
+    var i = 0;
+    for (i; i < n; i++) {
+        arr[i]={
+          "name": "Columna"+(i+1),
+          "value": "col2",
+          "bind": {
+            "input": "select",
+            "options": ["col1","col2","col3","col4","col5","col6"]
+          }
+        };    
+        }
+        arr[i++]={
+            "name": "EjeY",
+            "value": "col3",
+            "bind": {
+              "input": "select",
+              "options": ["col1","col2","col3","col4","col5","col6"]
+            }
+          };
+
+        console.log(arr);
+        return arr;
+}
+function dominio(n){
+    dom =[];
+    for (var i = 0; i < n/2; i++) {dom.push(i);};
+    return dom;
+}
+function crearBarras(n){
+    var arr=[];
+    for (var i = 0; i < n; i++) {
+        cad='#'+Math.random().toString(16).substr(-6);
+        arr[i]={
+                        "name": "barra"+(i+1),
+                        "from": {"data": "facet"},
+                        "type": "rect",
+                        "encode": {
+                            "update":{
+                                "x": {"scale": "pos","band": i/2},
+                                "y": {"scale": "y", "field": {"signal":"Columna"+(i+1)}},
+                                "width": {"scale": "pos", "band": 0.5},
+                                "y2": {"scale": "y", "value": 0},
+                                "fill": {"value": cad}
+                        }
+                      }
+                    };
+    };
+    console.log(arr);
+    return arr;
+}
+function generarColumnas(selectores){
     return {
   "$schema": esquema,
 
@@ -27,7 +79,10 @@ function generarColumnas(){
             }
         ],
 
-  "signals": [
+  "signals": crearSeleccion(selectores)
+
+  /*
+  [
     {
       "name": "EjeX",
       "value": "col2",
@@ -67,13 +122,9 @@ function generarColumnas(){
         "input": "select",
         "options": ["col1","col2","col3","col4","col5","col6"]
       }
-    },
-
-    {
-      "name": "sex", "value": "Todos",
-      "bind": {"input": "radio", "options": ["Hombres", "Mujeres", "Todos"]}
     }
     ]
+    */
     ,
         "scales": [
             {
@@ -81,7 +132,7 @@ function generarColumnas(){
                 "type":  "band",
                 "range": "width",
                 "nice": true,
-                "domain": {"data": "personas", "field": {"signal":"EjeX"}},
+                "domain": {"data": "valores", "field": "col2"},
                 "padding": 0.3
             },
             {
@@ -91,7 +142,7 @@ function generarColumnas(){
                  "round": true,
                 "zero": true,
                 "nice": true,
-                "domain": {"data": "personas", "field": {"signal":"EjeY"}},
+                "domain": {"data": "valores", "field": {"signal":"EjeY"}},
             }
         ],
 
@@ -99,7 +150,8 @@ function generarColumnas(){
             {"orient": "bottom", "scale": "x", "zindex": 1},
             {"orient": "left", "scale": "y", "zindex": 1}
         ]
-        ,
+      
+      ,
 
         "marks": [
             {
@@ -113,7 +165,7 @@ function generarColumnas(){
                 },
                 "encode": {
                     "enter": {
-                        "x": {"scale": "x", "field": {"signal":"EjeX"}}
+                        "x": {"scale": "x", "field": "col2"}
                     }
                 },
                 "signals": [
@@ -125,10 +177,11 @@ function generarColumnas(){
                         "name": "pos",
                         "type": "band",
                         "range": "height",
-                        "domain": {"data": "facet", "fields": [{"signal":"Barras1"}," "]}
+                        "domain": dominio(selectores)
                     }
                 ],
-                "marks": [
+                "marks": crearBarras(selectores)
+                /*[
                     {
                         "name": "bars",
                         "from": {"data": "facet"},
@@ -136,13 +189,13 @@ function generarColumnas(){
                         "encode": {
                             "update":{
                                 "x": {"scale": "pos","band": 0},
-                                "y": {"scale": "y", "field": {"signal":"Barras1"}},
+                                "y": {"scale": "y", "field": {"signal":"Columna1"}},
                                 "width": {"scale": "pos", "band": 0.5},
                                 "y2": {"scale": "y", "value": 0},
                                 "fill": {"value": "grey"}
                         }
                       }
-                    },
+                    }/*,
                     {
                         "name": "bars1",
                         "from": {"data": "facet"},
@@ -172,6 +225,7 @@ function generarColumnas(){
                       }
                     }
                     ]
+                    */
                   }
             ]
 
@@ -179,6 +233,7 @@ function generarColumnas(){
 
 
 
+  
 
   }
 }
