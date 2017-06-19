@@ -1,15 +1,20 @@
-function generarLineas(){
-    return {
-        "$schema": esquema,
-        "width": personas2.length * 35,
-        "height": 200,
-        "padding": 5,
-
-        "signals": [
-            {
-                "name": "interpolate",
-                "value": "linear",
-                "bind": {
+function crearSeleccionLineas(n){
+    var arr=[];
+    var i = 0;
+    for (i; i < n; i++) {
+        arr[i]={
+          "name": "Columna"+(i+1),
+          "value": "col2",
+          "bind": {
+            "input": "select",
+            "options": ["col3","col4","col5"]
+          }
+        };    
+        }
+       arr[i++]={
+       "name": "interpolate",
+       "value": "linear",
+       "bind": {
                     "input": "select",
                     "options": [
                         "basis",
@@ -22,9 +27,54 @@ function generarLineas(){
                         "step-after",
                         "step-before"
                     ]
-                }
+       }
+      };
+        arr[i++]={
+            "name": "EjeY",
+            "value": "col3",
+            "bind": {
+              "input": "select",
+              "options": ["col2","col3","col4","col5"]
             }
-        ],
+      };
+        return arr;
+}
+function crearLineas(lineas){
+    arr=[];
+    for (var i = 0; i < lineas; i++) {
+        cad='#'+Math.random().toString(16).substr(-6);
+        arr[i]={
+                        "type": "line",
+                        "from": {"data": "table"},
+                        "encode": {
+                            "enter": {
+                                "stroke": {"value": cad},
+                                "strokeWidth": {"value": 2}
+                            },
+                            "update": {
+                                "x": {"scale": "x", "field": "col2"},
+                                "y": {"scale": "y", "field": {"signal":"Columna"+(i+1)}},
+                                "interpolate": {"signal": "interpolate"},
+                                "fillOpacity": {"value": 1}
+                            },
+                            "hover": {
+                                "fillOpacity": {"value": 0.5}
+                            }
+                        }
+                    };
+    };
+        console.log(arr);
+    return arr;    
+}
+
+function generarLineas(lineas){
+    return {
+        "$schema": esquema,
+        "width": personas2.length * 35,
+        "height": 200,
+        "padding": 5,
+
+        "signals": crearSeleccionLineas(lineas),
 
         "data": [
             {
@@ -56,7 +106,7 @@ function generarLineas(){
                 "range": "height",
                 "nice": true,
                 "zero": true,
-                "domain": {"data": "table", "field": "col5"}
+                "domain": {"data": "table", "field": {"signal":"EjeY"}}
             }
         ],
 
@@ -68,8 +118,10 @@ function generarLineas(){
         "marks": [
             {
                 "type": "group",
-                "marks": [
-                    {
+                "marks": crearLineas(lineas) 
+                   /* 
+                [
+                   {
                         "type": "line",
                         "from": {"data": "table"},
                         "encode": {
@@ -107,6 +159,7 @@ function generarLineas(){
                         }
                     }
                 ]
+                    */
             }
         ]
     }
