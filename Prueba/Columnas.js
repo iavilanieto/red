@@ -19,6 +19,17 @@ function crearSeleccion(n){
               "options": ["col1","col2","col3","col4","col5","col6"]
             }
           };
+        arr[i++]={
+              "name": "query", "value": "",
+              "on": [
+                {"events": "Columna1:touchend!", "update": "datum.Columna1"},
+                {"events": "dblclick!", "update": "''"}
+              ],
+              "bind": {"input": "text", "placeholder": "search", "autocomplete": "off"}
+            };
+
+
+
 
         console.log(arr);
         return arr;
@@ -47,7 +58,6 @@ function crearBarras(n){
                       }
                     };
     };
-    console.log(arr);
     return arr;
 }
 function generarColumnas(selectores){
