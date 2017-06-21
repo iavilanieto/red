@@ -10,7 +10,7 @@ function generarPie(){
       "values": datosPersonas,
       "transform": [
         {
-          "type": "pie","field": "col3"
+          "type": "pie","field": {"signal": "Seleccion"}
         }
       ]
     }
@@ -22,93 +22,53 @@ function generarPie(){
         "range": {"scheme": "category20"}
       }
     ],
+    "signals": [
+    {
+      "name": "Seleccion",
+      "value": "col3",
+      "bind": {
+        "input": "select",
+        "options": ["col3","col4","col5"]
+      }
+    }
+    ],
     "marks": [    
       {
         "type": "arc",
-        "from": {
-          "data": "table"
-                },
+        "from": {"data": "table"},
         "encode": {
           "enter": {
-            "tooltip": {
-              "signal": "datum.col2 + ' Hombres: '+ datum.col3"
-            },
-            "fill": {
-              "scale": "color",
-              "field": "col3"
-            },
-            "x": {"field": {"group": "width"},"mult": 0.5}
-            ,"y": {"field": {"group": "height"},"mult": 0.5},
-            "startAngle": {
-              "field": "startAngle"
-            },
-            "endAngle": {
-              "field": "endAngle"
-            },
-            "innerRadius": {
-              "value": 0
-            },
-            "outerRadius": {
-              "signal": "width / 3"
-            }
+            "x": {"field": {"group": "width"},"mult": 0.5},
+            "y": {"field": {"group": "height"},"mult": 0.5}
           },
           "update": {
-            "fill": {
-              "scale": "color",
-              "field": "col2"
-            },
-            
+            "tooltip": {"signal":"datum.col2"},
+            "fill": {"scale": "color","field": {"signal":"Seleccion"}},
+            "startAngle": {"field": "startAngle"},
+            "endAngle": {"field": "endAngle"},
+            "innerRadius": {"value": 0},
+            "outerRadius": {"signal": "width / 3"}
           },
           "hover": {
-            "fill": {
-              "value": "grey"
-            }
+            "fill": {"value": "grey"}
           }
         }
       },
       {
         "type": "text",
-        "from": {
-          "data": "table"
-        },
+        "from": {"data": "table"},
         "encode": {
           "enter": {
-            "x": {
-              "field": {
-                "group": "width"
-              },
-              "mult": 0.5
-            },
-            "y": {
-              "field": {
-                "group": "height"
-              },
-              "mult": 0.5
-            },
+            "x": {"field": {"group": "width"}, "mult": 0.5},
+            "y": {"field": {"group": "height"}, "mult": 0.5},
             "angle": {"value": 55},
-            "radius": {
-              "value": 150,
-              "offset": 8
-            },
-            "fill": {
-              "value": "#000"
-            },
-            "theta": {
-              "signal": "(datum.startAngle + datum.endAngle)/2"
-            },
-            "align": {
-              "value": "center"
-            },
-            "baseline": {
-              "value": "bottom"
-            },
-            "text": {
-              "field": "col3"
-            },
-            "fontSize": {
-              "value": 12
-            },
-            
+            "radius": {"value": 150,"offset": 8}
+          }, 
+          "update":{
+            "fill": {"value": "#000"},
+            "theta": {"signal": "(datum.startAngle + datum.endAngle)/2"},
+            "align": {"value": "center"},
+            "text": {"field": {"signal":"Seleccion"}}
           }
         }
       }

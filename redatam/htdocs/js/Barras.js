@@ -1,8 +1,8 @@
 function generarBarras(){
     return {
         "$schema": esquema,
-        "width": (datosPersonas.length)*35,
-        "height": datosPersonas.length+200,
+        "height": datosPersonas.length+100,
+        "width": (datosPersonas.length)*10+380,
         "padding": 5,
         "data": [
             {

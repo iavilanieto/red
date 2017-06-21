@@ -47,7 +47,7 @@ jQuery( document ).ready( function( )
     autoOpen: false,
     modal: true,
     resizable: false,
-    height: 100
+    height: 150
   });
 
   $('#title_dummy').hide( );
@@ -274,7 +274,7 @@ function showResponse( responseText, statusText, xhr, $form )
     {
       var src = $(this).attr('src');
 
-      if( src.indexOf('http://')==0 && src.indexOf('MAP')>0 )
+      if( src.indexOf('http://') == 0 && src.indexOf('MAP') > 0 )
       {
         var img = jQuery('#tab-map').append( '<img src=' + src + '></img>' );
       }

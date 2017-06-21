@@ -17,10 +17,10 @@ header #logo {
 
 header #logo img {
     float: left;
-    height: 64px;
+    height: 80px;
     margin-left: 20px;
     margin-top: 15px;
-    width: 64px
+    width: 65px
 }
 
 header #logo-font {

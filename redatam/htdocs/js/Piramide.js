@@ -1,8 +1,8 @@
 function generarPiramide(){
     return {
         "$schema":esquema ,
-        "height": 300+(5*datosJSON.length),
-        "width": datosJSON.length*35,
+        "height": datosPersonas.length*5+250,
+        "width": (datosPersonas.length)*15,
         "padding": 5,
 
         "signals": [
@@ -30,7 +30,7 @@ function generarPiramide(){
         "data": [
             {
                 "name": "population",
-                "values": datosJSON
+                "values": datosPersonas
             },
             {
                 "name": "valores",
@@ -124,7 +124,8 @@ function generarPiramide(){
                 ],
 
                 "axes": [
-                    {"orient": "bottom", "scale": "x", "format": "s", "title":"# Casos"}
+                    {"orient": "bottom", "scale": "x", "format": "s", "title":"# Casos"
+                    }
                 ], 
                 "marks": [
                     {

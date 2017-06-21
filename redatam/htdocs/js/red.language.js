@@ -1,26 +1,26 @@
-if ( navigator.appName == 'Microsoft Internet Explorer' ) 
+if ( navigator.appName == 'Microsoft Internet Explorer' )
 {
-	var language = navigator.browserLanguage; 
+	var language = navigator.browserLanguage;
 }
-else 
+else
 {
-	var language = navigator.language; 
+	var language = navigator.language;
 }
 
 if ( language.indexOf( 'es' ) > -1 )
 {
-	document.location.href = '/redatam/index.es.html'; 
-}	
+	document.location.href = '/redatam/es/index.html';
+}
 else if ( language.indexOf( 'fr' ) > -1 )
 {
-	document.location.href = '/redatam/index.fr.html'; 
+	document.location.href = '/redatam/fr/index.html';
 }
 else if ( language.indexOf( 'pt' ) > -1 )
 {
-	document.location.href = '/redatam/index.pt.html'; 
-}	
+	document.location.href = '/redatam/pt-br/index.html';
+}
 else
 {
-	document.location.href = '/redatam/index.en.html'; 
-}	
+	document.location.href = '/redatam/en/index.html';
+}
 
