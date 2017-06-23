@@ -7,8 +7,6 @@ function obtenerListadoOpciones(nombreCol) {
 }
 
 function Datos(rango){
-var arr=[{"f1":250},{"f1":555}];
-console.log(rango);
 var arreglo = [{"f1":0},{"f1":0}];
     for(var i=0;i<personas2.length;i++) {
         if (personas2[i]["col2"]===rango) {
@@ -17,10 +15,10 @@ var arreglo = [{"f1":0},{"f1":0}];
           break;
         };
     }
-  console.log(arreglo);
+  return arreglo;
     }
 
-function generarPie(){
+function generarPie(agrupamiento){
     return {
     "$schema": esquema,
     "width": 400,
@@ -32,7 +30,7 @@ function generarPie(){
       "values": personas2,
       "transform": [
         {
-          "type": "pie","field": {"signal": "Seleccion"}
+          "type": "pie","field": agrupamiento // {"signal": "Seleccion"}
         }
       ]
     }
@@ -50,7 +48,7 @@ function generarPie(){
       "value": "col3",
       "bind": {
         "input": "select",
-        "options": obtenerListadoOpciones("col2")
+        "options": obtenerListadoOpciones(agrupamiento)
       }
       /*
       ,
@@ -117,7 +115,7 @@ function generarPie(){
 }
 
 
-function generarPieRango(arr){
+function generarPieRango(rango){
     return {
     "$schema": esquema,
     "width": 400,
@@ -126,7 +124,7 @@ function generarPieRango(arr){
     "data": [
     {
       "name": "table",
-      "values": arr,
+      "values": Datos(rango),
       "transform": [
         {
           "type": "pie","field": "f1"
@@ -151,7 +149,7 @@ function generarPieRango(arr){
             "y": {"field": {"group": "height"},"mult": 0.5}
           },
           "update": {
-         //   "tooltip": {"field": "f1"},
+            "tooltip": {"field": "f1"},
             "fill": {"scale": "color","field": "f1"},
             "startAngle": {"field": "startAngle"},
             "endAngle": {"field": "endAngle"},

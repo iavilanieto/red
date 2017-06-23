@@ -2,8 +2,6 @@
 <html>
     <head>
         <title>
-
-
         </title>
         <script src="js/jquery-current.min.js"></script>
         <script src="js/bootstrap/js/bootstrap.min.js"></script>
@@ -21,21 +19,23 @@
 
     </head>
     <body>
-        <ul/>
-        <div>
+        <div style="float: left">
             <button type="button" id="pi" onclick="iniciarConsulta1()">Piramide</button>
             <button type="button" id="ba" onclick="iniciarConsulta2()">Barras</button>
             <button type="button" id="es" onclick="iniciarConsulta3()">Lineas</button>
             <button type="button" id="Pie" onclick="iniciarConsulta4()">Pie</button>
             <button type="button" id="map" onclick="iniciarConsulta5()">Mapa</button>
             <button type="button" id="colum" onclick="iniciarConsulta6()">Columnas</button>
-        </div>
+        <div id="#CuadroOpciones">
+        <ul>
 
-        <ul/>
-        <div>
-            <div id="Tabpopulation" align="left"></div>
+         </ul>
+        <div id="opciones">
+            </div>
         </div>
-    </body>
+             <div id="Tabpopulation"></div>
+        </div>
+            </body>
 </html>
 
 <script type="text/javascript">
@@ -43,19 +43,35 @@
     var esquema="https://vega.github.io/schema/vega/v3.0.json";
     datosJSON={};
 
+    function llenarOpciones(){
+        var arr=Object.keys(personas2[0]);
+        for (var i = 0; i < arr.length; i++) {
+            $('#Ejex').append($("<option></option>").text(arr[i]).val(arr[i]));
+            $('#Ejey').append($("<option></option>").text(arr[i]).val(arr[i]));
+            $('#Agrupamiento').append($("<option></option>").text(arr[i]).val(arr[i]));
+                }
+    }
+       
     function iniciarConsulta1(){
+        console.log(personas2);
         $("#Tabpopulation").empty();
         $("#Tabpopulation").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
-        var view = new vega.View(vega.parse(generarPiramide()), {
+        $("#opciones").empty();
+        $("#opciones").append("<label>Eje X</label><select id=\"Ejex\"></select><label>Eje Y</label><select id=\"Ejey\"></select><label>Agrupado por</label><select id=\"Agrupamiento\"></select><button type=\"button\" id=\"Ejecutar\">Ejecutar</button>");
+        llenarOpciones();        
+        $('#Ejecutar').click(function(){
+        var view = new vega.View(vega.parse(generarPiramide($("#Ejex").val(),$("#Ejey").val(),$("#Agrupamiento").val())), {
             loader: vega.loader(),
             logLevel: vega.Warn,
             renderer: 'canvas'
         }).initialize('#population-pyramid').hover().run();
+        });
     }
 
     function iniciarConsulta2(){
         $("#Tabpopulation").empty();
         $("#Tabpopulation").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
+        $("#opciones").empty();
         var view = new vega.View(vega.parse(generarBarras()), {
             loader: vega.loader(),
             logLevel: vega.Warn,
@@ -66,31 +82,67 @@
 
     function iniciarConsulta3(){
         $("#Tabpopulation").empty();
-        $("#Tabpopulation").append("<div><button type=\"button\" id=\"config\">Graficar</button><input type=\"text\" id=\"text_config\"/></div><div><div id=\"population-pyramid\" class=\"view\"></div></div>");
-        $("#config").click(function(){
-        console.log($("#text_config").val());
         $("#Tabpopulation").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
-        var view = new vega.View(vega.parse(generarLineas($("#text_config").val())), {
+        $("#Tabpopulation").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
+        $("#opciones").empty();
+        $("#opciones").append("<label># variables<select id=\"Nvariables\"><option value=\"1\">1</option><option value=\"2\">2</option><option value=\"3\">3</option><option value=\"4\">4</option><option value=\"5\">5</option><option value=\"6\">6</option><option value=\"7\">7</option><option value=\"8\">8</option></select><label>Eje X</label><select id=\"Ejex\"></select><label>Eje Y</label><select id=\"Ejey\"></select><label>Agrupado por</label><select id=\"Agrupamiento\"></select><button type=\"button\" id=\"Ejecutar\">Ejecutar</button>");
+        llenarOpciones();
+        $('#Ejecutar').click(function(){
+        var view = new vega.View(vega.parse(generarLineas($("#Nvariables").val(),$("#Ejex").val(),$("#Ejey").val(),$("#Agrupamiento").val())), {
             loader: vega.loader(),
             logLevel: vega.Warn,
             renderer: 'canvas'
         }).initialize('#population-pyramid').hover().run();
-
     });
     }
     function iniciarConsulta4(){
         $("#Tabpopulation").empty();
         $("#Tabpopulation").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
-        var view = new vega.View(vega.parse(generarPie()), {
+        $("#opciones").empty();
+        $("#opciones").empty();
+        $("#opciones").append("<label>Agrupado por</label><select id=\"Agrupamiento\"></select><button type=\"button\" id=\"Ejecutar\">Ejecutar</button>");
+        llenarOpciones();
+        $('#Agrupamiento').change(function(){
+            $("#Rangos").empty();
+            $("#opciones").append("<div id=\"Rangos\"></div>");
+            $("#Rangos").append("<label>Rango</label><select id=\"Rango\"></select>");
+            arr=obtenerListadoOpciones($("#Agrupamiento").val());
+            for (var i = 0; i <arr.length; i++) {
+                $('#Rango').append($("<option></option>").text(arr[i]).val(arr[i]));
+            };
+        $('#Rango').change(function(){
+        var view = new vega.View(vega.parse(generarPieRango($("#Rango").val())), {
+            loader: vega.loader(),
+            logLevel: vega.Warn,
+            renderer: 'canvas'
+        }).initialize('#population-pyramid').hover().run();    
+        });
+        });
+        $('#Ejecutar').click(function(){
+        var view = new vega.View(vega.parse(generarPie($("#Agrupamiento").val())), {
             loader: vega.loader(),
             logLevel: vega.Warn,
             renderer: 'canvas'
         }).initialize('#population-pyramid').hover().run();
-        $('select[name=Seleccion]').change(function(){
-            arr=Datos($('select[name=Seleccion]').val());
         
+        /*$('select[name=Seleccion]').change(function(){
+            arr=Datos($('select[name=Seleccion]').val());
         view.on(view.vega.parse(generarPie()));
+       /*var vegaView;
+        vega.parse.spec(generarPieRango(arr), function(chart) {
+            vegaView = chart({"el" : "#population-pyramid"});
+            vegaView.viewport(null) 
+                .renderer("svg")
+                .update();*/
         });
+/*        var view = new vega.View(vega.parse(generarPieRango(arr)), {
+            loader: vega.loader(),
+            logLevel: vega.Warn,
+            renderer: 'canvas',
+            el:'#population-pyramid'
+            }).update('#population-pyramid');
+        });
+*/
 
       /*
         view = new vega.View(vega.parse(generarPie()), {
@@ -106,11 +158,11 @@
     );
         view.on(view._signals.Seleccion, hoverfollower);
 */
-        console.log(personas2);
     }
     function iniciarConsulta5(){
         $("#Tabpopulation").empty();
         $("#Tabpopulation").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
+        $("#opciones").empty();
         var view = new vega.View(vega.parse(generarMapa()), {
             loader: vega.loader(),
             logLevel: vega.Warn,
@@ -119,16 +171,20 @@
     }
     function iniciarConsulta6(){
     $("#Tabpopulation").empty();
-    $("#Tabpopulation").append("<div><button type=\"button\" id=\"config\">Graficar</button><input type=\"text\" id=\"text_config\"/></div><div><div id=\"population-pyramid\" class=\"view\"></div></div>");
-    $("#config").click(function(){
-        console.log($("#text_config").val());
-    var view = new vega.View(vega.parse(generarColumnas($("#text_config").val())), {
+    $("#Tabpopulation").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
+   // $('#Nvariables').change(function(){
+        $("#opciones").empty();
+        $("#opciones").append("<label># variables<select id=\"Nvariables\"><option value=\"1\">1</option><option value=\"2\">2</option><option value=\"3\">3</option><option value=\"4\">4</option><option value=\"5\">5</option><option value=\"6\">6</option><option value=\"7\">7</option><option value=\"8\">8</option></select><label>Eje X</label><select id=\"Ejex\"></select><label>Eje Y</label><select id=\"Ejey\"></select><label>Agrupado por</label><select id=\"Agrupamiento\"></select><button type=\"button\" id=\"Ejecutar\">Ejecutar</button>");
+    llenarOpciones();
+    $('#Ejecutar').click(function(){
+    var view = new vega.View(vega.parse(generarColumnas($("#Nvariables").val(),$("#Ejex").val(),$("#Ejey").val(),$("#Agrupamiento").val())), {
         loader: vega.loader(),
          logLevel: vega.Warn,
         renderer: 'canvas'
     }).initialize('#population-pyramid').hover().run();
-        
     });
-    console.log(personas2);
+   //     });
+
+      
  }
 </script>

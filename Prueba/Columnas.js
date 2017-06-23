@@ -1,37 +1,16 @@
-function crearSeleccion(n){
+function crearSeleccion(n, agrupado){
     var arr=[];
     var i = 0;
     for (i; i < n; i++) {
         arr[i]={
           "name": "Columna"+(i+1),
-          "value": "col2",
+          "value": agrupado,
           "bind": {
             "input": "select",
             "options": ["col1","col2","col3","col4","col5","col6"]
           }
         };    
         }
-        arr[i++]={
-            "name": "EjeY",
-            "value": "col3",
-            "bind": {
-              "input": "select",
-              "options": ["col1","col2","col3","col4","col5","col6"]
-            }
-          };
-        arr[i++]={
-              "name": "query", "value": "",
-              "on": [
-                {"events": "Columna1:touchend!", "update": "datum.Columna1"},
-                {"events": "dblclick!", "update": "''"}
-              ],
-              "bind": {"input": "text", "placeholder": "search", "autocomplete": "off"}
-            };
-
-
-
-
-        console.log(arr);
         return arr;
 }
 function dominio(n){
@@ -60,10 +39,9 @@ function crearBarras(n){
     };
     return arr;
 }
-function generarColumnas(selectores){
+function generarColumnas(nVariables,ejeX, ejeY, agrupamiento){
     return {
-  "$schema": esquema,
-
+        "$schema": esquema,
         "width": personas2.length+500,
         "height": personas2.length+200,
         "padding": 5,
@@ -89,61 +67,15 @@ function generarColumnas(selectores){
             }
         ],
 
-  "signals": crearSeleccion(selectores)
-
-  /*
-  [
-    {
-      "name": "EjeX",
-      "value": "col2",
-      "bind": {
-        "input": "select",
-        "options": ["col1","col2","col3","col4","col5","col6"]
-      }
-    },
-    {
-      "name": "EjeY",
-      "value": "col5",
-      "bind": {
-        "input": "select",
-        "options": ["col1","col2","col3","col4","col5","col6"]
-      }
-    },    
-    {
-      "name": "Barras1",
-      "value": "col3",
-      "bind": {
-        "input": "select",
-        "options": ["col1","col2","col3","col4","col5","col6"]
-      }
-    },    
-    {
-      "name": "Barras2",
-      "value": "col4",
-      "bind": {
-        "input": "select",
-        "options": ["col1","col2","col3","col4","col5","col6"]
-      }
-    },    
-    {
-      "name": "Barras3",
-      "value": "col5",
-      "bind": {
-        "input": "select",
-        "options": ["col1","col2","col3","col4","col5","col6"]
-      }
-    }
-    ]
-    */
-    ,
+  "signals": crearSeleccion(nVariables, agrupamiento),
         "scales": [
             {
                 "name": "x",
                 "type":  "band",
                 "range": "width",
                 "nice": true,
-                "domain": {"data": "valores", "field": "col2"},
-                "padding": 0.3
+                "domain": {"data": "valores", "field": ejeX},//"col2"},
+                "padding": 0.6
             },
             {
                 "name": "y",
@@ -152,7 +84,7 @@ function generarColumnas(selectores){
                  "round": true,
                 "zero": true,
                 "nice": true,
-                "domain": {"data": "valores", "field": {"signal":"EjeY"}},
+                "domain": {"data": "valores", "field": ejeY} //{"signal":"EjeY"}},
             }
         ],
 
@@ -170,12 +102,12 @@ function generarColumnas(selectores){
                     "facet": {
                         "data": "personas",
                         "name": "facet",
-                        "groupby": "col2"
+                        "groupby": ejeX //"col2"
                     }
                 },
                 "encode": {
                     "enter": {
-                        "x": {"scale": "x", "field": "col2"}
+                        "x": {"scale": "x", "field": ejeX} // "col2"}
                     }
                 },
                 "signals": [
@@ -187,10 +119,10 @@ function generarColumnas(selectores){
                         "name": "pos",
                         "type": "band",
                         "range": "height",
-                        "domain": dominio(selectores)
+                        "domain": dominio(nVariables)
                     }
                 ],
-                "marks": crearBarras(selectores)
+                "marks": crearBarras(nVariables)
                 /*[
                     {
                         "name": "bars",

@@ -1,10 +1,10 @@
-function crearSeleccionLineas(n){
+function crearSeleccionLineas(n, agrupamiento){
     var arr=[];
     var i = 0;
     for (i; i < n; i++) {
         arr[i]={
           "name": "Columna"+(i+1),
-          "value": "col2",
+          "value": agrupamiento,
           "bind": {
             "input": "select",
             "options": ["col3","col4","col5"]
@@ -29,17 +29,9 @@ function crearSeleccionLineas(n){
                     ]
        }
       };
-        arr[i++]={
-            "name": "EjeY",
-            "value": "col3",
-            "bind": {
-              "input": "select",
-              "options": ["col2","col3","col4","col5"]
-            }
-      };
         return arr;
 }
-function crearLineas(lineas){
+function crearLineas(lineas, ejeX, ejeY){
     arr=[];
     for (var i = 0; i < lineas; i++) {
         cad='#'+Math.random().toString(16).substr(-6);
@@ -52,7 +44,7 @@ function crearLineas(lineas){
                                 "strokeWidth": {"value": 2}
                             },
                             "update": {
-                                "x": {"scale": "x", "field": "col2"},
+                                "x": {"scale": "x", "field": ejeX},
                                 "y": {"scale": "y", "field": {"signal":"Columna"+(i+1)}},
                                 "interpolate": {"signal": "interpolate"},
                                 "fillOpacity": {"value": 1}
@@ -63,18 +55,17 @@ function crearLineas(lineas){
                         }
                     };
     };
-        console.log(arr);
     return arr;    
 }
 
-function generarLineas(lineas){
+function generarLineas(nVariables,ejeX, ejeY, agrupamiento){
     return {
         "$schema": esquema,
         "width": personas2.length * 35,
         "height": 200,
         "padding": 5,
 
-        "signals": crearSeleccionLineas(lineas),
+        "signals": crearSeleccionLineas(nVariables,agrupamiento),
 
         "data": [
             {
@@ -98,7 +89,7 @@ function generarLineas(lineas){
                 "name": "x",
                 "type": "point",
                 "range": "width",
-                "domain": {"data": "table", "field": "col2"}
+                "domain": {"data": "table", "field": ejeX}
             },
             {
                 "name": "y",
@@ -106,7 +97,7 @@ function generarLineas(lineas){
                 "range": "height",
                 "nice": true,
                 "zero": true,
-                "domain": {"data": "table", "field": {"signal":"EjeY"}}
+                "domain": {"data": "table", "field": ejeY} //{"signal":"EjeY"}}
             }
         ],
 
@@ -118,7 +109,7 @@ function generarLineas(lineas){
         "marks": [
             {
                 "type": "group",
-                "marks": crearLineas(lineas) 
+                "marks": crearLineas(nVariables, ejeX, ejeY) 
                    /* 
                 [
                    {
