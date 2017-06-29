@@ -1,4 +1,45 @@
-function generarBarras(){
+function crearSeleccion(n, agrupado){
+    var arr=[];
+    var i = 0;
+    for (i; i < n; i++) {
+        arr[i]={
+          "name": "Columna"+(i+1),
+          "value": agrupado,
+          "bind": {
+            "input": "select",
+            "options": ["col1","col2","col3","col4","col5","col6"]
+          }
+        };    
+        }
+        return arr;
+}
+function dominio(n){
+    dom =[];
+    for (var i = 0; i < n/2; i++) {dom.push(i);};
+    return dom;
+}
+function crearBarras(n){
+    var arr=[];
+    for (var i = 0; i < n; i++) {
+        cad='#'+Math.random().toString(16).substr(-6);
+        arr[i]={
+                        "name": "barra"+(i+1),
+                        "from": {"data": "facet"},
+                        "type": "rect",
+                        "encode": {
+                            "update":{
+                                "x": {"scale": "pos","band": i/2},
+                                "y": {"scale": "y", "field": {"signal":"Columna"+(i+1)}},
+                                "width": {"scale": "pos", "band": 0.5},
+                                "y2": {"scale": "y", "value": 0},
+                                "fill": {"value": cad}
+                        }
+                      }
+                    };
+    };
+    return arr;
+}
+function generarBarras(nVariables,ejeX, ejeY, agrupamiento){
     return {
         "$schema": esquema,
         "height": datosPersonas.length+100,
@@ -35,6 +76,7 @@ function generarBarras(){
                 ]
             }
         ],
+        "signals": crearSeleccion(nVariables, agrupamiento),
         "scales": [
         {
             "name": "color",
@@ -53,7 +95,7 @@ function generarBarras(){
                 "name": "x",
                 "type":  "band",
                 "range": "width",
-                "domain": {"data": "personas", "field": "col2"},
+                "domain": {"data": "personas", "field": ejeX},
                 "padding": 0.1
             },
             {
@@ -63,7 +105,7 @@ function generarBarras(){
                 "round": true,
                 "zero": true,
                 "nice": true,
-                "domain": {"data": "personas", "field": "col5"},
+                "domain": {"data": "personas", "field": ejeY},
             }
         ],
      "legends": [
@@ -93,12 +135,12 @@ function generarBarras(){
                     "facet": {
                         "data": "personas",
                         "name": "facet",
-                        "groupby": "col2"
+                        "groupby": ejeX
                     }
                 },
                 "encode": {
                     "enter": {
-                        "x": {"scale": "x", "field": "col2"}
+                        "x": {"scale": "x", "field": ejeX}
                     }
                 },
                 "signals": [
@@ -110,39 +152,10 @@ function generarBarras(){
                         "name": "pos",
                         "type": "band",
                         "range": "height",
-                        "domain": {"data": "facet", "field": "col3"}
+                        "domain": dominio(nVariables)
                     }
                 ],
-                "marks": [
-                    {
-                        "name": "bars",
-                        "from": {"data": "facet"},
-                        "type": "rect",
-                        "encode": {
-                            "enter": {
-                                "x": {"scale": "pos", "field": "col3", "band": .5},
-                                "width": {"scale": "pos", "band": .5},
-                                "y": {"scale": "y", "field": "col3"},
-                                "y2": {"scale": "y", "value": 0},
-                                "fill": {"value": "#1f77b4"}
-                            }
-                        }
-                    },{
-                        "name": "bars1",
-                        "from": {"data": "facet"},
-                        "type": "rect",
-                        "encode": {
-                            "enter": {
-                                "x": {"scale": "pos","field": "col4"},
-                                "width": {"scale": "pos", "band": 0.5},
-                                "y": {"scale": "y", "field": "col4"},
-                                "y2": {"scale": "y", "value": 0},
-                                "fill": {"value": "grey"}
-                            } 
-                        }
-                    }
-
-                ]
+                "marks": crearBarras(nVariables)
             }
         ]
     }}

@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Ubuntu';
-  src:  url('../../../css/fonts/ubuntu/Ubuntu-Regular.ttf');
+  src:  url('../../fonts/ubuntu/Ubuntu-Regular.ttf');
   font-weight: normal;
   font-style: normal;
 }
@@ -72,6 +72,8 @@ b,
 strong {
   font-weight: bold;
 }
+
+
 dfn {
   font-style: italic;
 }
@@ -3808,6 +3810,52 @@ tbody.collapse.in {
   border-top-right-radius: 0;
   border-top-left-radius: 0;
 }
+.btn-group > button{
+  color: #E95420;
+  background-color: #FFF;
+}
+#Ejecutar:focus,
+#Ejecutar.focus {
+  color: #F9F9F9;
+  background-color: #E95420;
+  border-color: #791912;
+}
+#Ejecutar:hover {
+  color: #F9F9F9;
+  background-color: #E95420;
+  border-color: #b3251b;
+}
+#Ejecutar{
+  background-color: #F9F9F9;
+  border-color: #dddddd;
+  font-size: 12px;
+  color:#E95420;
+}
+#opciones{
+  padding-top: 20px;
+  border-color:#F1F1F1 ;
+}
+
+#pi:hover, #ba:hover, #es:hover, #pie:hover {
+  color: #FFF;
+  background-color: #E95420;
+}
+
+#pi, #ba, #es, #pie{
+  width: 70px;
+  font-size: 20px;
+  padding-top: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+}
+
+.border-right {
+    border-right: 1px solid #ddd;
+}
+.border-left {
+  border-left: 1px solid #ddd;
+}
 .btn-group-justified {
   display: table;
   width: 100%;
@@ -3862,6 +3910,9 @@ tbody.collapse.in {
   font-size: 18px;
   line-height: 1.3333333;
   border-radius: 6px;
+}
+select.form-control{
+  height: 30px;
 }
 select.input-group-lg > .form-control,
 select.input-group-lg > .input-group-addon,
@@ -5709,8 +5760,12 @@ button.list-group-item-danger.active:focus {
 }
 .panel-default > .panel-heading {
   color: #333333;
-  background-color: #f5f5f5;
+  background-color: #FFFFFF;
   border-color: #dddddd;
+}
+.panel-default > .panel-body {
+  color: #333333;
+  background-color: #FFFFFF;
 }
 .panel-default > .panel-heading + .panel-collapse > .panel-body {
   border-top-color: #dddddd;

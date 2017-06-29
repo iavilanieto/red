@@ -1,4 +1,4 @@
-function generarPiramide(){
+function generarPiramide(ejeX, ejeY, agrupamiento){
     return {
         "$schema":esquema ,
         "height": datosPersonas.length*5+250,
@@ -9,7 +9,13 @@ function generarPiramide(){
             { "name": "chartWidth", "value": 300 },
             { "name": "chartPad", "value": 20 },
             { "name": "width", "update": "2 * chartWidth + chartPad" },
-            { "name": "year", "value": 2000 }
+            { "name": "year", "value": 2000 },
+            { "name": "Grupo1", "value": agrupamiento,
+                "bind": { "input": "select", "options": ["col1","col2","col3","col4","col5","col6"]}
+            },
+            { "name": "Grupo2", "value": agrupamiento,
+                "bind": { "input": "select", "options": ["col1","col2","col3","col4","col5","col6"]}
+            }
         ],
          "legends": [
                   {
@@ -83,7 +89,7 @@ function generarPiramide(){
                 "type": "band",
                 "range": [{"signal": "height"}, 0],
                 "round": true,
-                "domain": {"data": "population", "field": "col2"}
+                "domain": {"data": "population", "field": ejeY}
             }
         ],
 
@@ -95,8 +101,8 @@ function generarPiramide(){
                 "encode": {
                     "enter": {
                         "x": {"signal": "chartWidth + chartPad / 2"},
-                        "y": {"scale": "y", "field": "col2", "band": 0.5},
-                        "text": {"field": "col2"},
+                        "y": {"scale": "y", "field": ejeY, "band": 0.5},
+                        "text": {"field": ejeY},
                         "baseline": {"value": "middle"},
                         "align": {"value": "center"},
                         "fill": {"value": "grey"}
@@ -119,7 +125,7 @@ function generarPiramide(){
                         "type": "linear",
                         "range": [{"signal": "chartWidth"}, 0],
                         "nice": true, "zero": true,
-                        "domain": {"data": "valores", "field": "value"}
+                        "domain": {"data": "valores", "field": ejeX}
                     }
                 ],
 
@@ -132,10 +138,10 @@ function generarPiramide(){
                         "type": "rect",
                         "from": {"data": "population"},
                         "encode": {
-                            "enter": {
-                                "x": {"scale": "x", "field": "col3"},
+                            "update": {
+                                "x": {"scale": "x", "field": {"signal":"Grupo1"}},
                                 "x2": {"scale": "x", "value": 0},
-                                "y": {"scale": "y", "field": "col2"},
+                                "y": {"scale": "y", "field": ejeY},
                                 "height": {"scale": "y", "band": 1, "offset": -1},
                                 "fillOpacity": {"value": 0.6},
                                 "fill": {"value": "#1f77b4"}
@@ -160,7 +166,7 @@ function generarPiramide(){
                         "type": "linear",
                         "range": [50, {"signal": "chartWidth"}],
                         "nice": true, "zero": true,
-                        "domain": {"data": "valores", "field": "value"}
+                        "domain": {"data": "valores", "field": ejeX}
                     }
                 ],
 
@@ -172,10 +178,10 @@ function generarPiramide(){
                         "type": "rect",
                         "from": {"data": "population"},
                         "encode": {
-                            "enter": {
-                                "x": {"scale": "x", "field": "col4"},
+                            "update": {
+                                "x": {"scale": "x", "field": {"signal":"Grupo2"}},
                                 "x2": {"scale": "x", "value": 0},
-                                "y": {"scale": "y", "field": "col2"},
+                                "y": {"scale": "y", "field": ejeY},
                                 "height": {"scale": "y", "band": 1, "offset": -1},
                                 "fillOpacity": {"value": 0.6},
                                 "fill": {"value": "#000"}

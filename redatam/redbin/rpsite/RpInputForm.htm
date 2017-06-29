@@ -8,7 +8,7 @@
         <meta http-equiv="Pragma" content="no-cache">
         <meta http-equiv="Cache-Control" content="no-cache, no-store, max-age=0, must-revalidate" />
         <meta http-equiv="Expires" content="-1">
-
+        <link type="text/css" rel="stylesheet" href="/redatam/css/font-awesome/css/font-awesome.min.css">
         <script type="text/javascript" src="/redatam/js/jquery-current.min.js"></script>
         <script type="text/javascript" src="/redatam/js/ui/jquery-ui-current.min.js"></script>
 
@@ -27,6 +27,7 @@
         <link type="text/css" rel="stylesheet" href="/redatam/css/red.panels.css" />
         <link type="text/css" rel="stylesheet" href="/redatam/css/red.input.main.css" />
         <link type="text/css" rel="stylesheet" href="/redatam/css/red.output.css" />
+        <link rel="stylesheet" type="text/css" href="/redatam/js/bootstrap/css/bootstrap.css"/>
 
         <link type="text/css" rel="stylesheet" href="<#THEME>" />
 
@@ -91,8 +92,34 @@ Export:
                                 </div>
                             </div>
                             <div id="tabs-6">
+                               <div class="container-fluid">
                                 <div id="tab-din" align="left">
-                                    <div>
+                                    <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-12 col-lg-12" style="border-right-color:#F1F1F1;">
+                                            <div class="btn-group">
+                                                <button type="button" id="pi" onclick="iniciarConsulta1()"><i class="fa fa-shield fa-flip-vertical" ></i></button>
+                                                <button type="button" id="ba" onclick="iniciarConsulta2()"><i class="fa fa-bar-chart"></i></button>
+                                                <button type="button" id="es" onclick="iniciarConsulta3()"><i class="fa fa-line-chart"></i></button>
+                                                <button type="button" id="pie" onclick="iniciarConsulta4()"><i class="fa fa-pie-chart"></i></button>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-3 col-md-3 col-lg-3 border-right">
+                                            <div class="form-horizontal">
+                                                <fieldset>
+                                                    <div id="opciones"></div>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-9 col-md-9 col-lg-9 border-left">
+                                            <div id="population-pyramid"></div>
+                                        </div>
+                                        </div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -126,14 +153,11 @@ Export:
                             var datosJSON = {}
                             var d2 = {};
                             var datosPersonas = [];
+                            var datosSelectores = [];
                             function iniciarConsulta() {
-
                                 var tabla = $(".CSSTableGenerator table").clone();
-
                                 while(tabla.find("tr").first().find(".c2    ").length==0) {
-                                    tabla.find("tr").first().remove();
-                                }
-
+                                    tabla.find("tr").first().remove();}
                                 // remover comas como separador de miles
                                 var tablaTransformada = tabla.tableToJSON({
                                     ignoreHiddenRows: false,
@@ -169,76 +193,122 @@ Export:
                                 $.each(datosJSON, function(item){
                                     if (datosJSON[item]!==undefined) 
                                         {datosPersonas.push(datosJSON[item])};
-                                        console.log(datosJSON[item]);
                                 });
                                 datosPersonas.pop();
-                                console.log(datosPersonas);
-                                //console.log(datosJSON.length-1);
-                                $("#tab-din").empty();
-                                $("#tab-din").append("<ul/><div><button type=\"button\" id=\"pi\" onclick=\"iniciarConsulta1()\">Piramide</button><button type=\"button\" id=\"ba\" onclick=\"iniciarConsulta2()\">Barras</button><button type=\"button\" id=\"es\" onclick=\"iniciarConsulta3()\">Lineas</button><button type=\"button\" id=\"pie\" onclick=\"iniciarConsulta4()\">Pie</button></div><ul/><div><div id=\"population-pyramid\" class=\"view\"></div></div>");
-                                iniciarConsulta1();
-                                var selected_value = [];                                
+                                iniciarConsulta1();                                
                             }
 
+    function llenarOpciones(){
+            if (datosSelectores.length===0) {
+            datosSelectores=Object.keys(datosPersonas[0]);
+            for (var i = 0; i < datosSelectores.length; i++) {
+               $('#Ejex').append($("<option></option>").text(datosSelectores[i]).val(datosSelectores[i]));
+               $('#Ejey').append($("<option></option>").text(datosSelectores[i]).val(datosSelectores[i]));
+               $('#Agrupamiento').append($("<option></option>").text(datosSelectores[i]).val(datosSelectores[i]));
+                        }
+        }else {
+            for (var i = 0; i < datosSelectores.length; i++) {
+               $('#Ejex').append($("<option></option>").text(datosSelectores[i]).val(datosSelectores[i]));
+               $('#Ejey').append($("<option></option>").text(datosSelectores[i]).val(datosSelectores[i]));
+               $('#Agrupamiento').append($("<option></option>").text(datosSelectores[i]).val(datosSelectores[i]));
+                        }
+                }
+    }
     function iniciarConsulta1(){
         $("#population-pyramid").empty();
         $("#population-pyramid").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
-        var view = new vega.View(vega.parse(generarPiramide()), {
+        $("#opciones").empty();
+        $("#opciones").append("<div class=\"form-group\"><label class=\"col-xs-5 col-md-5 col-lg-5 control-label control-label\">Eje X</label><div class=\"col-xs-7 col-md-7 col-lg-7\"><select class=\"form-control\" id=\"Ejex\"></select></div></div><div class=\"form-group\"><label class=\"col-xs-5 col-md-5 col-lg-5 control-label control-label\">Eje Y</label><div class=\"col-xs-7 col-md-7 col-lg-7\"><select class=\"form-control\" id=\"Ejey\"></select></div></div><div class=\"form-group\"><label class=\"col-xs-5 col-md-5 col-lg-5 control-label control-label\">Agrupado por</label><div class=\"col-xs-7 col-md-7 col-lg-7\"><select class=\"form-control\" id=\"Agrupamiento\"></select></div></div><div class=\"form-group\"><div class=\"col-xs-7 col-xs-offset-5 col-md-7 col-md-offset-5 col-lg-7 col-lg-offset-5\"><button type=\"button\" class=\"btn\" id=\"Ejecutar\" >Ejecutar</button></div></div>");
+        llenarOpciones();        
+        $('#Ejecutar').click(function(){
+        var view = new vega.View(vega.parse(generarPiramide($("#Ejex").val(),$("#Ejey").val(),$("#Agrupamiento").val())), {
             loader: vega.loader(),
             logLevel: vega.Warn,
             renderer: 'canvas'
         }).initialize('#population-pyramid').hover().run();
+        });
     }
 
     function iniciarConsulta2(){
         $("#population-pyramid").empty();
         $("#population-pyramid").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
-        var view = new vega.View(vega.parse(generarBarras()), {
+        $("#opciones").empty();
+        $("#opciones").append("<div class=\"form-group\"><label class=\"col-xs-5 col-md-5 col-lg-5 control-label control-label\"># variables</label><div class=\"col-xs-7 col-md-7 col-lg-7\"><select class=\"form-control\" id=\"Nvariables\"><option value=\"1\">1</option><option value=\"2\">2</option><option value=\"3\">3</option><option value=\"4\">4</option><option value=\"5\">5</option><option value=\"6\">6</option><option value=\"7\">7</option><option value=\"8\">8</option></select></div></div><div class=\"form-group\"><label class=\"col-xs-5 col-md-5 col-lg-5 control-label control-label\">Eje X</label><div class=\"col-xs-7 col-md-7 col-lg-7\"><select class=\"form-control\" id=\"Ejex\"></select></div></div><div class=\"form-group\"><label class=\"col-xs-5 col-md-5 col-lg-5 control-label control-label\">Eje Y</label><div class=\"col-xs-7 col-md-7 col-lg-7\"><select class=\"form-control\" id=\"Ejey\"></select></div></div><div class=\"form-group\"><label class=\"col-xs-5 col-md-5 col-lg-5 control-label control-label\">Agrupado por</label><div class=\"col-xs-7 col-md-7 col-lg-7\"><select class=\"form-control\" id=\"Agrupamiento\"></select></div></div><div class=\"form-group\"><div class=\"col-xs-7 col-xs-offset-5 col-md-7 col-md-offset-5 col-lg-7 col-lg-offset-5\"><button type=\"button\" class=\"btn\" id=\"Ejecutar\" >Ejecutar</button></div></div>");
+        llenarOpciones();
+        $('#Ejecutar').click(function(){
+        var view = new vega.View(vega.parse(generarBarras($("#Nvariables").val(),$("#Ejex").val(),$("#Ejey").val(),$("#Agrupamiento").val())), {
             loader: vega.loader(),
-            logLevel: vega.Warn,
+             logLevel: vega.Warn,
             renderer: 'canvas'
         }).initialize('#population-pyramid').hover().run();
+        });
     }
 
 
     function iniciarConsulta3(){
         $("#population-pyramid").empty();
         $("#population-pyramid").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
-        var view = new vega.View(vega.parse(generarLineas()), {
+        $("#opciones").empty();
+        $("#opciones").append("<div class=\"form-group\"><label class=\"col-xs-5 col-md-5 col-lg-5 control-label control-label\"># variables</label><div class=\"col-xs-7 col-md-7 col-lg-7\"><select class=\"form-control\" id=\"Nvariables\"><option value=\"1\">1</option><option value=\"2\">2</option><option value=\"3\">3</option><option value=\"4\">4</option><option value=\"5\">5</option><option value=\"6\">6</option><option value=\"7\">7</option><option value=\"8\">8</option></select></div></div><div class=\"form-group\"><label class=\"col-xs-5 col-md-5 col-lg-5 control-label control-label\">Eje X</label><div class=\"col-xs-7 col-md-7 col-lg-7\"><select class=\"form-control\" id=\"Ejex\"></select></div></div><div class=\"form-group\"><label class=\"col-xs-5 col-md-5 col-lg-5 control-label control-label\">Eje Y</label><div class=\"col-xs-7 col-md-7 col-lg-7\"><select class=\"form-control\" id=\"Ejey\"></select></div></div><div class=\"form-group\"><label class=\"col-xs-5 col-md-5 col-lg-5 control-label control-label\">Agrupado por</label><div class=\"col-xs-7 col-md-7 col-lg-7\"><select class=\"form-control\" id=\"Agrupamiento\"></select></div></div><div class=\"form-group\"><div class=\"col-xs-7 col-xs-offset-5 col-md-7 col-md-offset-5 col-lg-7 col-lg-offset-5\"><button type=\"button\" class=\"btn\" id=\"Ejecutar\" >Ejecutar</button></div></div>");
+        llenarOpciones();
+        $('#Ejecutar').click(function(){
+        var view = new vega.View(vega.parse(generarLineas($("#Nvariables").val(),$("#Ejex").val(),$("#Ejey").val(),$("#Agrupamiento").val())), {
             loader: vega.loader(),
             logLevel: vega.Warn,
             renderer: 'canvas'
         }).initialize('#population-pyramid').hover().run();
+    });
     }
     function iniciarConsulta4(){
         $("#population-pyramid").empty();
         $("#population-pyramid").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
-        var view = new vega.View(vega.parse(generarPie()), {
+        $("#opciones").empty();
+        $("#opciones").append("<div class=\"form-group\"><label class=\"col-xs-5 col-md-5 col-lg-5 control-label control-label\">Agrupado por</label><div class=\"col-xs-7 col-md-7 col-lg-7\"><select class=\"form-control\" id=\"Agrupamiento\"></select></div></div><div class=\"form-group\"><div class=\"col-xs-7 col-xs-offset-5 col-md-7 col-md-offset-5 col-lg-7 col-lg-offset-5\"><button type=\"button\" class=\"btn\" id=\"Ejecutar\" >Ejecutar</button></div></div>");
+        llenarOpciones();
+        $('#Agrupamiento').change(function(){
+            $("#Rangos").empty();
+            $("#opciones").append("<div id=\"Rangos\">");
+            $("#Rangos").append("<div class=\"form-group\"><label class=\"col-xs-5 col-md-5 col-lg-5 control-label control-label\">Rango</label><div class=\"col-xs-7 col-md-7 col-lg-7\"><select class=\"form-control\" id=\"Rango\"></select></div></div></div>");
+            arr=obtenerListadoOpciones($("#Agrupamiento").val());
+            for (var i = 0; i <arr.length; i++) {
+                $('#Rango').append($("<option></option>").text(arr[i]).val(arr[i]));
+            };
+            $('#Rango').change(function(){
+            var view = new vega.View(vega.parse(generarPieRango($("#Rango").val())), {
+            loader: vega.loader(),
+            logLevel: vega.Warn,
+            renderer: 'canvas'
+        }).initialize('#population-pyramid').hover().run();    
+        });
+    });
+        $('#Ejecutar').click(function(){
+        var view = new vega.View(vega.parse(generarPie($("#Agrupamiento").val())), {
             loader: vega.loader(),
             logLevel: vega.Warn,
             renderer: 'canvas'
         }).initialize('#population-pyramid').hover().run();
-    }
-                        function cambioSeleccion(){
-                            var a=false,b=false,c=false;
-                                 $(".grupo:checked").each(function(){
-                                    if ($(this).val()==="Tabla")
-                                        a=true;
-                                    if ($(this).val()==="Piramide")
-                                        b=true;
-                                    if ($(this).val()==="Programa")
-                                        c=true;     
-                                });
-                                if (a)
-                                    $('select[name="FORMAT"]').val('HTML');
-                                if (b)
-                                    $('select[name="FORMAT"]').val('GRAPH');
-                                if(a&b)
-                                    $('select[name="FORMAT"]').val('HTMLGRAPH');
-                                if(c)
-                                    $('select[name="FORMAT"]').val('SPC');
-                            };
-
+    });
+            }/*
+                                function cambioSeleccion(){
+                                    var a=false,b=false,c=false;
+                                         $(".grupo:checked").each(function(){
+                                            if ($(this).val()==="Tabla")
+                                                a=true;
+                                            if ($(this).val()==="Piramide")
+                                                b=true;
+                                            if ($(this).val()==="Programa")
+                                                c=true;     
+                                        });
+                                        if (a)
+                                            $('select[name="FORMAT"]').val('HTML');
+                                        if (b)
+                                            $('select[name="FORMAT"]').val('GRAPH');
+                                        if(a&b)
+                                            $('select[name="FORMAT"]').val('HTMLGRAPH');
+                                        if(c)
+                                            $('select[name="FORMAT"]').val('SPC');
+                                    };
+        */
                         </script>
                         </body>
 
