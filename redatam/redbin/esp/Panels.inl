@@ -1,13 +1,13 @@
 //-----------------------------------------------------------------
 [PANELHEADER]
-HEIGHT=107
+HEIGHT=50
 ALIGN=CENTER
 
 PICTURETOP1=0
 PICTURELEFT1=2
-PICTUREHEIGHT1=80
-PICTUREWIDTH1=80
-PICTUREFILE1=/redatam/images/Redatam7_80x80.png
+PICTUREHEIGHT1=50
+PICTUREWIDTH1=50
+PICTUREFILE1=/redatam/images/Redatam7_50x50.png
 PICTUREHREF1=http://www.cepal.org/celade/redatam/
 PICTUREALT1=Sitio Oficial de Redatam
 
