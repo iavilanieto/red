@@ -3814,6 +3814,41 @@ tbody.collapse.in {
   color: #E95420;
   background-color: #FFF;
 }
+
+#sidebar-wrapper{
+  position: absolute;
+  width:0;
+  overflow:hidden; 
+  -webkit-transition: 0.6s;
+  transition:0.6s;
+}
+/* Grafica*/
+#page-content-wrapper{
+  width: 100%;
+}
+#wrapper.menuDisplayed #sidebar-wrapper{
+  width: 200px;
+  border: 1px solid #c0c0c0;
+}
+#wrapper.menuDisplayed #page-content-wrapper{
+  padding-left: 200px;
+}
+#menu-toggle{
+    width: 20px;
+    font-size: 15px;
+    border-style: none;
+    border-top: 1px solid #c0c0c0;
+    border-bottom: 1px solid #c0c0c0;
+    border-left: 1px solid #c0c0c0;
+    border-right: 1px solid #c0c0c0;
+    color: #E95420;
+    background-color: white;
+    left: -15px;
+}
+#menu{
+  cursor: pointer;
+}
+
 #Ejecutar:focus,
 #Ejecutar.focus {
   color: #F9F9F9;
@@ -3836,7 +3871,14 @@ tbody.collapse.in {
   border-color:#F1F1F1 ;
 }
 
-#pi:hover, #ba:hover, #es:hover, #pie:hover {
+#pi:hover, #ba:hover, #es:hover, #pie:hover,#menu-toggle:hover {
+  color: #FFF;
+  background-color: #E95420;
+}
+
+
+#pi.active,#ba.active,#es.active,#pie.active,#menu-toggle.active,
+#pi:focus,#ba:focus,#es:focus,#pie:focus,#menu-toggle:focus{
   color: #FFF;
   background-color: #E95420;
 }
@@ -3848,6 +3890,9 @@ tbody.collapse.in {
   padding-right: 10px;
   padding-bottom: 10px;
   padding-left: 10px;
+  border-style: none;
+  border-right: 1px solid #ddd;
+  
 }
 
 .border-right {
@@ -5530,6 +5575,8 @@ button.list-group-item-danger.active:focus {
 }
 .panel-body {
   padding: 15px;
+  width: 1000px;
+  height: 1000px;
 }
 .panel-heading {
   padding: 10px 15px;

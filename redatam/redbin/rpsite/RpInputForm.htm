@@ -97,28 +97,37 @@ Export:
                                     <div class="panel panel-default">
                                     <div class="panel-heading">
                                     <div class="row">
-                                        <div class="col-xs-12 col-md-12 col-lg-12" style="border-right-color:#F1F1F1;">
+                                        <div class="col-xs-12 col-md-12 col-lg-12">
                                             <div class="btn-group">
-                                                <button type="button" id="pi" onclick="iniciarConsulta1()"><i class="fa fa-shield fa-flip-vertical" ></i></button>
-                                                <button type="button" id="ba" onclick="iniciarConsulta2()"><i class="fa fa-bar-chart"></i></button>
-                                                <button type="button" id="es" onclick="iniciarConsulta3()"><i class="fa fa-line-chart"></i></button>
-                                                <button type="button" id="pie" onclick="iniciarConsulta4()"><i class="fa fa-pie-chart"></i></button>
+                                                <button type="button" class="btn active" id="pi"  onclick="iniciarConsulta1()"><i class="fa fa-shield fa-flip-vertical" ></i></button>
+                                                <button type="button" class="btn" id="ba" onclick="iniciarConsulta2()"><i class="fa fa-bar-chart"></i></button>
+                                                <button type="button" class="btn" id="es" onclick="iniciarConsulta3()"><i class="fa fa-line-chart"></i></button>
+                                                <button type="button" class="btn" id="pie" onclick="iniciarConsulta4()"><i class="fa fa-pie-chart"></i></button>
                                             </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-xs-3 col-md-3 col-lg-3 border-right">
-                                            <div class="form-horizontal">
+                                    <div class="panel-body">
+                                    <div id="wrapper" class="menuDisplayed">
+                                    <div id="sidebar-wrapper" >
                                                 <fieldset>
                                                     <div id="opciones"></div>
                                                 </fieldset>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-9 col-md-9 col-lg-9 border-left">
+                                    </div>
+                                    <div id="page-content-wrapper">
+                                    <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="DivLeft">
+                                        <div class="col-xs-12 col-md-12 col-lg-12s">
+                                        <button class="btn" id="menu-toggle" ><i class="fa fa-caret-square-o-left"></i></button>
                                             <div id="population-pyramid"></div>
                                         </div>
                                         </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                        </div>
+                                    </div>
                                     </div>
                                     </div>
                                 </div>
@@ -154,7 +163,22 @@ Export:
                             var d2 = {};
                             var datosPersonas = [];
                             var datosSelectores = [];
-                            function iniciarConsulta() {
+                            $('.btn-group > .btn').click(function(){
+                                $(this).addClass('active').siblings().removeClass('active');
+                            }); 
+    $('#menu-toggle').click(function(e){
+        e.preventDefault();
+
+        $('#wrapper').toggleClass('menuDisplayed');
+        if($('#wrapper').hasClass('menuDisplayed')){
+            $('#menu-toggle > i').removeClass('fa fa-caret-square-o-right').addClass('fa fa-caret-square-o-left');
+        }else{
+            $('#menu-toggle > i').removeClass('fa fa-caret-square-o-left').addClass('fa fa-caret-square-o-right');
+        }
+    });
+
+
+    function iniciarConsulta() {
                                 var tabla = $(".CSSTableGenerator table").clone();
                                 while(tabla.find("tr").first().find(".c2    ").length==0) {
                                     tabla.find("tr").first().remove();}
@@ -196,7 +220,7 @@ Export:
                                 });
                                 datosPersonas.pop();
                                 iniciarConsulta1();                                
-                            }
+    }
 
     function llenarOpciones(){
             if (datosSelectores.length===0) {
@@ -218,7 +242,7 @@ Export:
         $("#population-pyramid").empty();
         $("#population-pyramid").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
         $("#opciones").empty();
-        $("#opciones").append("<div class=\"form-group\"><label class=\"col-xs-5 col-md-5 col-lg-5 control-label control-label\">Eje X</label><div class=\"col-xs-7 col-md-7 col-lg-7\"><select class=\"form-control\" id=\"Ejex\"></select></div></div><div class=\"form-group\"><label class=\"col-xs-5 col-md-5 col-lg-5 control-label control-label\">Eje Y</label><div class=\"col-xs-7 col-md-7 col-lg-7\"><select class=\"form-control\" id=\"Ejey\"></select></div></div><div class=\"form-group\"><label class=\"col-xs-5 col-md-5 col-lg-5 control-label control-label\">Agrupado por</label><div class=\"col-xs-7 col-md-7 col-lg-7\"><select class=\"form-control\" id=\"Agrupamiento\"></select></div></div><div class=\"form-group\"><div class=\"col-xs-7 col-xs-offset-5 col-md-7 col-md-offset-5 col-lg-7 col-lg-offset-5\"><button type=\"button\" class=\"btn\" id=\"Ejecutar\" >Ejecutar</button></div></div>");
+        $("#opciones").append("<div class=\"form-group col-xs-8 col-md-8 col-lg-8\"><label class=\"col-lg-10 control-label\">Eje X</label><div class=\"col-lg-10\"><select class=\"form-control\" id=\"Ejex\"></select></div></div><div class=\"form-group col-xs-8 col-md-8 col-lg-8\"><label class=\"col-lg-10 control-label\">Eje Y</label><div class=\"col-lg-10\"><select class=\"form-control\" id=\"Ejey\"></select></div></div><div class=\"form-group col-xs-8 col-md-8 col-lg-8\"><label class=\"col-lg-10 control-label\">Agrupado por</label><div class=\"col-lg-10\"><select class=\"form-control\" id=\"Agrupamiento\"></select></div></div><div class=\"form-group col-xs-8 col-md-8 col-lg-8\"><div class=\"col-lg-10\"><button type=\"button\" class=\"btn\" id=\"Ejecutar\" >Ejecutar</button></div></div>");
         llenarOpciones();        
         $('#Ejecutar').click(function(){
         var view = new vega.View(vega.parse(generarPiramide($("#Ejex").val(),$("#Ejey").val(),$("#Agrupamiento").val())), {
@@ -233,7 +257,7 @@ Export:
         $("#population-pyramid").empty();
         $("#population-pyramid").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
         $("#opciones").empty();
-        $("#opciones").append("<div class=\"form-group\"><label class=\"col-xs-5 col-md-5 col-lg-5 control-label control-label\"># variables</label><div class=\"col-xs-7 col-md-7 col-lg-7\"><select class=\"form-control\" id=\"Nvariables\"><option value=\"1\">1</option><option value=\"2\">2</option><option value=\"3\">3</option><option value=\"4\">4</option><option value=\"5\">5</option><option value=\"6\">6</option><option value=\"7\">7</option><option value=\"8\">8</option></select></div></div><div class=\"form-group\"><label class=\"col-xs-5 col-md-5 col-lg-5 control-label control-label\">Eje X</label><div class=\"col-xs-7 col-md-7 col-lg-7\"><select class=\"form-control\" id=\"Ejex\"></select></div></div><div class=\"form-group\"><label class=\"col-xs-5 col-md-5 col-lg-5 control-label control-label\">Eje Y</label><div class=\"col-xs-7 col-md-7 col-lg-7\"><select class=\"form-control\" id=\"Ejey\"></select></div></div><div class=\"form-group\"><label class=\"col-xs-5 col-md-5 col-lg-5 control-label control-label\">Agrupado por</label><div class=\"col-xs-7 col-md-7 col-lg-7\"><select class=\"form-control\" id=\"Agrupamiento\"></select></div></div><div class=\"form-group\"><div class=\"col-xs-7 col-xs-offset-5 col-md-7 col-md-offset-5 col-lg-7 col-lg-offset-5\"><button type=\"button\" class=\"btn\" id=\"Ejecutar\" >Ejecutar</button></div></div>");
+        $("#opciones").append("<div class=\"form-group col-xs-8 col-md-8 col-lg-8\"><label class=\"col-xs-offset-1 col-md-offset-1 col-lg-offset-1 control-label\"># variables</label><div class=\"col-lg-10\"><select class=\"form-control\" id=\"Nvariables\"><option value=\"1\">1</option><option value=\"2\">2</option><option value=\"3\">3</option><option value=\"4\">4</option><option value=\"5\">5</option><option value=\"6\">6</option><option value=\"7\">7</option><option value=\"8\">8</option></select></div></div><div class=\"form-group col-xs-8 col-md-8 col-lg-8\"><label class=\"col-xs-offset-1 col-md-offset-1 col-lg-offset-1 control-label\">Eje X</label><div class=\"col-lg-10\"><select class=\"form-control\" id=\"Ejex\"></select></div></div><div class=\"form-group col-xs-8 col-md-8 col-lg-8\"><label class=\"col-xs-offset-1 col-md-offset-1 col-lg-offset-1 control-label\">Eje Y</label><div class=\"col-lg-10\"><select class=\"form-control\" id=\"Ejey\"></select></div></div><div class=\"form-group col-xs-8 col-md-8 col-lg-8\"><label class=\"col-xs-offset-1 col-md-offset-1 col-lg-offset-1 control-label\">Agrupado por</label><div class=\"col-lg-10\"><select class=\"form-control\" id=\"Agrupamiento\"></select></div></div><div class=\"form-group col-xs-8 col-md-8 col-lg-8\"><div class=\"col-lg-10\"><button type=\"button\" class=\"btn\" id=\"Ejecutar\" >Ejecutar</button></div></div>");
         llenarOpciones();
         $('#Ejecutar').click(function(){
         var view = new vega.View(vega.parse(generarBarras($("#Nvariables").val(),$("#Ejex").val(),$("#Ejey").val(),$("#Agrupamiento").val())), {
@@ -249,7 +273,7 @@ Export:
         $("#population-pyramid").empty();
         $("#population-pyramid").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
         $("#opciones").empty();
-        $("#opciones").append("<div class=\"form-group\"><label class=\"col-xs-5 col-md-5 col-lg-5 control-label control-label\"># variables</label><div class=\"col-xs-7 col-md-7 col-lg-7\"><select class=\"form-control\" id=\"Nvariables\"><option value=\"1\">1</option><option value=\"2\">2</option><option value=\"3\">3</option><option value=\"4\">4</option><option value=\"5\">5</option><option value=\"6\">6</option><option value=\"7\">7</option><option value=\"8\">8</option></select></div></div><div class=\"form-group\"><label class=\"col-xs-5 col-md-5 col-lg-5 control-label control-label\">Eje X</label><div class=\"col-xs-7 col-md-7 col-lg-7\"><select class=\"form-control\" id=\"Ejex\"></select></div></div><div class=\"form-group\"><label class=\"col-xs-5 col-md-5 col-lg-5 control-label control-label\">Eje Y</label><div class=\"col-xs-7 col-md-7 col-lg-7\"><select class=\"form-control\" id=\"Ejey\"></select></div></div><div class=\"form-group\"><label class=\"col-xs-5 col-md-5 col-lg-5 control-label control-label\">Agrupado por</label><div class=\"col-xs-7 col-md-7 col-lg-7\"><select class=\"form-control\" id=\"Agrupamiento\"></select></div></div><div class=\"form-group\"><div class=\"col-xs-7 col-xs-offset-5 col-md-7 col-md-offset-5 col-lg-7 col-lg-offset-5\"><button type=\"button\" class=\"btn\" id=\"Ejecutar\" >Ejecutar</button></div></div>");
+        $("#opciones").append("<div class=\"form-group col-xs-8 col-md-8 col-lg-8\"><label class=\"col-xs-offset-1 col-md-offset-1 col-lg-offset-1 control-label\"># variables</label><div class=\"col-lg-10\"><select class=\"form-control\" id=\"Nvariables\"><option value=\"1\">1</option><option value=\"2\">2</option><option value=\"3\">3</option><option value=\"4\">4</option><option value=\"5\">5</option><option value=\"6\">6</option><option value=\"7\">7</option><option value=\"8\">8</option></select></div></div><div class=\"form-group col-xs-8 col-md-8 col-lg-8\"><label class=\"col-xs-offset-1 col-md-offset-1 col-lg-offset-1 control-label\">Eje X</label><div class=\"col-lg-10\"><select class=\"form-control\" id=\"Ejex\"></select></div></div><div class=\"form-group col-xs-8 col-md-8 col-lg-8\"><label class=\"col-xs-offset-1 col-md-offset-1 col-lg-offset-1 control-label\">Eje Y</label><div class=\"col-lg-10\"><select class=\"form-control\" id=\"Ejey\"></select></div></div><div class=\"form-group col-xs-8 col-md-8 col-lg-8\"><label class=\"col-xs-offset-1 col-md-offset-1 col-lg-offset-1 control-label\">Agrupado por</label><div class=\"col-lg-10\"><select class=\"form-control\" id=\"Agrupamiento\"></select></div></div><div class=\"form-group col-xs-8 col-md-8 col-lg-8\"><div class=\"col-lg-10\"><button type=\"button\" class=\"btn\" id=\"Ejecutar\" >Ejecutar</button></div></div>");
         llenarOpciones();
         $('#Ejecutar').click(function(){
         var view = new vega.View(vega.parse(generarLineas($("#Nvariables").val(),$("#Ejex").val(),$("#Ejey").val(),$("#Agrupamiento").val())), {
@@ -263,12 +287,12 @@ Export:
         $("#population-pyramid").empty();
         $("#population-pyramid").append("<div><div id=\"population-pyramid\" class=\"view\"></div></div>");
         $("#opciones").empty();
-        $("#opciones").append("<div class=\"form-group\"><label class=\"col-xs-5 col-md-5 col-lg-5 control-label control-label\">Agrupado por</label><div class=\"col-xs-7 col-md-7 col-lg-7\"><select class=\"form-control\" id=\"Agrupamiento\"></select></div></div><div class=\"form-group\"><div class=\"col-xs-7 col-xs-offset-5 col-md-7 col-md-offset-5 col-lg-7 col-lg-offset-5\"><button type=\"button\" class=\"btn\" id=\"Ejecutar\" >Ejecutar</button></div></div>");
+        $("#opciones").append("<div class=\"form-group col-xs-8 col-md-8 col-lg-8\"><label class=\"col-xs-offset-1 col-md-offset-1 col-lg-offset-1 control-label\">Agrupado por</label><div class=\"col-lg-10\"><select class=\"form-control\" id=\"Agrupamiento\"></select></div></div><div class=\"form-group col-xs-8 col-md-8 col-lg-8\"><div class=\"col-lg-10\"><button type=\"button\" class=\"btn\" id=\"Ejecutar\" >Ejecutar</button></div></div>");
         llenarOpciones();
         $('#Agrupamiento').change(function(){
             $("#Rangos").empty();
             $("#opciones").append("<div id=\"Rangos\">");
-            $("#Rangos").append("<div class=\"form-group\"><label class=\"col-xs-5 col-md-5 col-lg-5 control-label control-label\">Rango</label><div class=\"col-xs-7 col-md-7 col-lg-7\"><select class=\"form-control\" id=\"Rango\"></select></div></div></div>");
+            $("#Rangos").append("<div class=\"form-group col-xs-8 col-md-8 col-lg-8\"><label class=\"col-xs-offset-1 col-md-offset-1 col-lg-offset-1 control-label\">Rango</label><div class=\"col-lg-10\"><select class=\"form-control\" id=\"Rango\"></select></div></div></div>");
             arr=obtenerListadoOpciones($("#Agrupamiento").val());
             for (var i = 0; i <arr.length; i++) {
                 $('#Rango').append($("<option></option>").text(arr[i]).val(arr[i]));
