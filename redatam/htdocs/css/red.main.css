@@ -1,10 +1,19 @@
 .red-main {
     background: #FAFAFA;
     width:100%;
-    height:calc(100% - 55px);
-    height: -moz-calc(100% - 55px);
-    height: -webkit-calc(100% - 55px);
+    height:calc(100% - 60px);
+    height: -moz-calc(100% - 60px);
+    height: -webkit-calc(100% - 60px);
     float:left;
+}
+.red-header {
+    border: solid;
+    border-width: 0 0 0 0;
+    border-color: #dddddd;
+    -webkit-box-shadow: 1px 0px 1px rgba(0,0,0,0.3);
+    box-shadow: 2px 1px 1px rgba(0,0,0,0.3);
+    margin-bottom: 2px;
+	height: 50px;
 }
 .red-index {
     width: 238px;
